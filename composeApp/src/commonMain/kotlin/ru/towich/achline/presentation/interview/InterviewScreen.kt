@@ -1,4 +1,4 @@
-package ru.towich.achline.presentation
+package ru.towich.achline.presentation.interview
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -60,8 +60,8 @@ import androidx.compose.ui.zIndex
 import androidx.compose.ui.platform.LocalDensity
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlin.math.abs
-import kotlin.math.roundToInt
 import kotlinx.coroutines.launch
+import ru.towich.achline.presentation.LocalInterviewRepository
 
 private val GradientPink = Color(0xFFFF4D8C)
 private val GradientViolet = Color(0xFF9D4EDD)
@@ -129,9 +129,9 @@ fun InterviewScreen(
                 } else {
                     CardStack(
                         stack = state.stack,
-                        onSwipeLeft = vm::onSwipeLeft,
-                        onSwipeRight = vm::onSwipeRight,
-                        onToggleAnswer = vm::toggleAnswer,
+                        onSwipeLeft = { vm.dispatch(InterviewIntent.SwipeLeft) },
+                        onSwipeRight = { vm.dispatch(InterviewIntent.SwipeRight) },
+                        onToggleAnswer = { vm.dispatch(InterviewIntent.ToggleAnswer(it)) },
                         modifier = Modifier
                             .fillMaxSize()
                             .windowInsetsPadding(WindowInsets.statusBars)
@@ -152,7 +152,7 @@ fun InterviewScreen(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             FloatingActionButton(
-                onClick = { vm.openDeleteConfirm() },
+                onClick = { vm.dispatch(InterviewIntent.OpenDeleteConfirm) },
                 modifier = Modifier.size(58.dp),
                 containerColor = Color(0xFF2A1F3D),
                 contentColor = GradientPink,
@@ -161,7 +161,7 @@ fun InterviewScreen(
                 Text("✕", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
             }
             FloatingActionButton(
-                onClick = { vm.openAddDialog() },
+                onClick = { vm.dispatch(InterviewIntent.OpenAddDialog) },
                 modifier = Modifier.size(58.dp),
                 containerColor = Color(0xFF2A1F3D),
                 contentColor = GradientCyan,
@@ -174,16 +174,16 @@ fun InterviewScreen(
 
     if (state.showDeleteConfirm) {
         AlertDialog(
-            onDismissRequest = { vm.dismissDeleteConfirm() },
+            onDismissRequest = { vm.dispatch(InterviewIntent.DismissDeleteConfirm) },
             title = { Text("Удалить карточку?") },
             text = { Text("Текущая верхняя карточка будет скрыта из тренировки (для вопросов из бандла — мягкое удаление).") },
             confirmButton = {
-                TextButton(onClick = { vm.confirmRemoveTopCard() }) {
+                TextButton(onClick = { vm.dispatch(InterviewIntent.ConfirmRemoveTopCard) }) {
                     Text("Удалить")
                 }
             },
             dismissButton = {
-                TextButton(onClick = { vm.dismissDeleteConfirm() }) {
+                TextButton(onClick = { vm.dispatch(InterviewIntent.DismissDeleteConfirm) }) {
                     Text("Отмена")
                 }
             },
@@ -193,8 +193,10 @@ fun InterviewScreen(
     if (state.showAddDialog) {
         AddQuestionDialog(
             themeOptions = state.themeOptions,
-            onDismiss = { vm.dismissAddDialog() },
-            onSubmit = { option, q, a -> vm.submitAddQuestion(option, q, a) },
+            onDismiss = { vm.dispatch(InterviewIntent.DismissAddDialog) },
+            onSubmit = { option, q, a ->
+                vm.dispatch(InterviewIntent.SubmitAddQuestion(option, q, a))
+            },
         )
     }
 }

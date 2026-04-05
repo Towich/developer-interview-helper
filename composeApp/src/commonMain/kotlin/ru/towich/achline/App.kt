@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import ru.towich.achline.presentation.InterviewScreen
+import ru.towich.achline.presentation.interview.InterviewScreen
 
 private val AchlineDarkColors = darkColorScheme(
     primary = Color(0xFFFF4D8C),

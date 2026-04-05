@@ -8,12 +8,7 @@ import ru.towich.achline.data.dto.OverlayFileDto
 import ru.towich.achline.data.dto.ThemeBundleDto
 import ru.towich.achline.domain.ThemeBundleData
 import ru.towich.achline.domain.UserOverlayState
-
-interface InterviewRepository {
-    suspend fun loadBundleAndOverlay(): Pair<List<ThemeBundleData>, UserOverlayState>
-
-    fun saveOverlay(overlay: UserOverlayState)
-}
+import ru.towich.achline.domain.repository.InterviewRepository
 
 class InterviewRepositoryImpl(
     private val overlayStorage: OverlayFileStorage,
