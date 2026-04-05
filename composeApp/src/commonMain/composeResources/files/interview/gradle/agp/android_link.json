@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "gradle",
+  "categoryId": "agp",
+  "themeId": "android_link",
+  "themeTitle": "Android Gradle Plugin и связка с Android",
+  "questions": [
+    {
+      "id": "gradle-agp-001",
+      "questionText": "Зачем нужны compileSdk и targetSdk?",
+      "answerText": "compileSdk — против какой платформы компилируем API; targetSdk — заявленное поведение совместимости для магазина.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "gradle-agp-002",
+      "questionText": "Чем application отличается от library плагина?",
+      "answerText": "application собирает APK/AAB; library — AAR без финального манифеста приложения.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-agp-003",
+      "questionText": "Что такое buildTypes debug/release?",
+      "answerText": "Разные настройки minify, signingConfig, buildConfigFields, proguard files.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-agp-004",
+      "questionText": "Как связаны Gradle tasks и AGP (assembleDebug)?",
+      "answerText": "AGP регистрирует задачи вариантов; зависимости между mergeResources, dex, package и т.д.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "gradle-agp-005",
+      "questionText": "Зачем namespace в AGP 8+?",
+      "answerText": "Замена package в AndroidManifest для R и BuildConfig; явная декларация пакета ресурсов.",
+      "difficulty": "hard"
+    }
+  ]
+}

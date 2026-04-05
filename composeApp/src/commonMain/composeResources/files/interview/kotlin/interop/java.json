@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "interop",
+  "themeId": "java",
+  "themeTitle": "Взаимодействие с Java",
+  "questions": [
+    {
+      "id": "kotlin-java-001",
+      "questionText": "Как вызвать Kotlin default-параметры из Java?",
+      "answerText": "Через @JvmOverloads на конструкторах/функциях или сгенерированные перегрузки.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-java-002",
+      "questionText": "Что такое @JvmStatic?",
+      "answerText": "Статический метод на классе Java для функции/проперти в companion object.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-java-003",
+      "questionText": "Как Kotlin name mangling решает конфликты с Java?",
+      "answerText": "Сгенерированные имена для функций с default-параметрами; @JvmName для явного имени.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-java-004",
+      "questionText": "Почему MutableList из Kotlin может удивить Java-код?",
+      "answerText": "Список может быть обёрткой с модификациями; для Java API иногда нужны явные типы и копии.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-java-005",
+      "questionText": "Как nullable Kotlin стыкуется с Optional в Java API?",
+      "answerText": "Использовать platform types осторожно; оборачивать/маппить; предпочитать чистые Kotlin API.",
+      "difficulty": "hard"
+    }
+  ]
+}

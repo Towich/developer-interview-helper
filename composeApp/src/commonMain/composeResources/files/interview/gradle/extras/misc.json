@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "gradle",
+  "categoryId": "extras",
+  "themeId": "misc",
+  "themeTitle": "Дополнительно (Gradle)",
+  "questions": [
+    {
+      "id": "gradle-x-001",
+      "questionText": "Зачем lint в Android-проекте?",
+      "answerText": "Статический анализ ресурсов и кода; находит проблемы совместимости и перформанса.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "gradle-x-002",
+      "questionText": "Где хранить signing secrets в CI?",
+      "answerText": "Encrypted secrets store, environment variables, не коммитить keystore пароли в git.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-x-003",
+      "questionText": "Что такое Gradle toolchain?",
+      "answerText": "Выбор конкретной JDK для компиляции независимо от JVM на машине.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-x-004",
+      "questionText": "Как Gradle взаимодействует с Kotlin compiler daemon?",
+      "answerText": "Отдельный процесс для инкрементальной компиляции Kotlin; настройки в kotlinOptions.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "gradle-x-005",
+      "questionText": "Зачем dependency verification (checksums)?",
+      "answerText": "Защита от подмены артефактов в репозитории; gradle/verification-metadata.xml.",
+      "difficulty": "hard"
+    }
+  ]
+}

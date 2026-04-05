@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "security",
+  "themeId": "privacy",
+  "themeTitle": "Безопасность и приватность",
+  "questions": [
+    {
+      "id": "android-sec-001",
+      "questionText": "Зачем использовать HTTPS вместо HTTP в приложении?",
+      "answerText": "Шифрование канала, защита от подслушивания и MITM (при корректной проверке сертификатов и pinning при необходимости).",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-sec-002",
+      "questionText": "Где безопаснее хранить токены: SharedPreferences или EncryptedSharedPreferences?",
+      "answerText": "EncryptedSharedPreferences (или Keystore-обёртки) — данные шифруются; обычные prefs в root/бэкапах уязвимы.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-sec-003",
+      "questionText": "Что такое Android Keystore?",
+      "answerText": "Хранилище ключей в TEE/StrongBox; ключи не извлекаются в открытом виде, операции подписи/шифрования выполняются на устройстве.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-sec-004",
+      "questionText": "Какие риски у exported=true у компонентов?",
+      "answerText": "Внешние приложения могут вызывать Activity/Service/Receiver; нужны разрешения, проверка caller, фильтры intent.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-sec-005",
+      "questionText": "Как правильно работать с персональными данными и политикой приватности?",
+      "answerText": "Минимизация сбора, явное согласие, политика в store, Data Safety form, удаление по запросу, ограничение логов.",
+      "difficulty": "hard"
+    }
+  ]
+}

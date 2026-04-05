@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "gradle",
+  "categoryId": "performance",
+  "themeId": "build_perf",
+  "themeTitle": "Производительность сборки",
+  "questions": [
+    {
+      "id": "gradle-perf-001",
+      "questionText": "Что даёт org.gradle.parallel=true?",
+      "answerText": "Параллельное выполнение независимых модулей на многоядерных машинах.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "gradle-perf-002",
+      "questionText": "Зачем build cache?",
+      "answerText": "Переиспользование выходов задач между сборками и CI; требует корректных inputs/outputs.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-perf-003",
+      "questionText": "Как уменьшить работу на configuration phase?",
+      "answerText": "Избегать тяжёлых вычислений вне tasks, ленивая регистрация, configuration cache.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-perf-004",
+      "questionText": "Что такое remote build cache?",
+      "answerText": "Общий кэш команды/CI; настройка URL и credentials; внимание к безопасности артефактов.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "gradle-perf-005",
+      "questionText": "Почему KAPT может замедлять сборку?",
+      "answerText": "Генерация стабов, аннотационные процессоры; альтернатива KSP где возможно.",
+      "difficulty": "hard"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 package ru.towich.achline.presentation.interview
 
+import ru.towich.achline.domain.QuestionDifficulty
+
 sealed interface InterviewIntent {
     data object OpenAddDialog : InterviewIntent
     data object DismissAddDialog : InterviewIntent
@@ -14,6 +16,7 @@ sealed interface InterviewIntent {
         val option: ThemeOption,
         val questionText: String,
         val answerText: String,
+        val difficulty: QuestionDifficulty,
     ) : InterviewIntent
 
     data object ConfirmRemoveTopCard : InterviewIntent

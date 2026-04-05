@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "extras",
+  "themeId": "misc",
+  "themeTitle": "Дополнительно (Android)",
+  "questions": [
+    {
+      "id": "android-x-001",
+      "questionText": "Что такое App Shortcuts?",
+      "answerText": "Ярлыки долгого нажатия на иконку: статические в манифесте/ресурсах и динамические через ShortcutManager.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-x-002",
+      "questionText": "Зачем нужны WindowInsets?",
+      "answerText": "Учёт вырезов, статус-бара, клавиатуры, жестовой навигации при отступах контента.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-x-003",
+      "questionText": "Что такое Picture-in-Picture?",
+      "answerText": "Режим окна поверх других приложений для видео/созвонов; требует поддержки Activity и пользовательских разрешений.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-x-004",
+      "questionText": "Как работает predictive back gesture?",
+      "answerText": "Предпросмотр назначения при жесте «назад»; интеграция с OnBackPressedDispatcher/Navigation и анимациями.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-x-005",
+      "questionText": "Какие особенности больших экранов (foldables, tablets)?",
+      "answerText": "Адаптивные макеты, resizable activities, multi-window, сохранение состояния при смене конфигурации и соотношения сторон.",
+      "difficulty": "hard"
+    }
+  ]
+}

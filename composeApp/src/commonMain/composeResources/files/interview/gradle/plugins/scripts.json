@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "gradle",
+  "categoryId": "plugins",
+  "themeId": "scripts",
+  "themeTitle": "Плагины и скрипты",
+  "questions": [
+    {
+      "id": "gradle-plg-001",
+      "questionText": "Чем plugins { } отличается от buildscript + apply?",
+      "answerText": "plugins DSL управляет версиями через pluginManagement, проще и декларативнее для большинства случаев.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "gradle-plg-002",
+      "questionText": "Что такое convention plugin (precompiled script)?",
+      "answerText": "Переиспользуемая конфигурация как отдельный модуль плагина; единый стиль для многомодульности.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-plg-003",
+      "questionText": "Когда уместен buildSrc?",
+      "answerText": "Общий код/плагины внутри репозитория; альтернатива — included composite build.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-plg-004",
+      "questionText": "Как объявить кастомную Gradle Task?",
+      "answerText": "Наследование DefaultTask, @TaskAction, регистрация tasks.register; избегать тяжёлой работы на configuration.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "gradle-plg-005",
+      "questionText": "Что такое configuration cache и его ограничения?",
+      "answerText": "Сериализация конфигурации для ускорения; задачи/плагины должны быть совместимы (no mutable globals at config time).",
+      "difficulty": "hard"
+    }
+  ]
+}

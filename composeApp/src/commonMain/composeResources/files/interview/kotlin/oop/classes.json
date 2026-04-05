@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "oop",
+  "themeId": "classes",
+  "themeTitle": "Классы, ООП и модификаторы",
+  "questions": [
+    {
+      "id": "kotlin-oop-001",
+      "questionText": "Чем final класс по умолчанию в Kotlin отличается от Java?",
+      "answerText": "В Kotlin классы закрыты для наследования без open; в Java наоборот virtual по умолчанию.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-oop-002",
+      "questionText": "Что такое primary constructor?",
+      "answerText": "Параметры класса и свойства в заголовке; init-блоки для дополнительной логики.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-oop-003",
+      "questionText": "Зачем internal модификатор?",
+      "answerText": "Видимость в пределах модуля (Gradle module) — удобно для скрытия API внутри библиотеки.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-oop-004",
+      "questionText": "Как устроено наследование при наличии data и open?",
+      "answerText": "data + наследование ограничено; copy/equals могут вести себя неожиданно — проектируют sealed иерархии.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-oop-005",
+      "questionText": "Что такое тип алиас typealias?",
+      "answerText": "Синоним имени типа для читаемости; не создаёт новый тип на JVM (стирается до базового).",
+      "difficulty": "hard"
+    }
+  ]
+}

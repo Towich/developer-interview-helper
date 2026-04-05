@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "background",
+  "themeId": "services",
+  "themeTitle": "Фоновая работа и системные сервисы",
+  "questions": [
+    {
+      "id": "android-bg-001",
+      "questionText": "Что такое WorkManager?",
+      "answerText": "Отложенная гарантированная фоновая работа с учётом Doze, constraints (сеть, зарядка), цепочки задач.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-bg-002",
+      "questionText": "Чем JobScheduler отличается от AlarmManager?",
+      "answerText": "JobScheduler — батчинг и условия ОС; AlarmManager — точные/повторяющиеся будильники, ограничения на точность во фоне.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-bg-003",
+      "questionText": "Зачем foreground service?",
+      "answerText": "Долгие задачи, заметные пользователю (трекинг, плеер); обязательное уведомление; типы FGS с Android 14+.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-bg-004",
+      "questionText": "Как Doze и App Standby влияют на фон?",
+      "answerText": "Откладывают сеть и wake locks; нужны правильные API (WorkManager, FGS) вместо вечных сервисов.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-bg-005",
+      "questionText": "Когда уместен BroadcastReceiver vs WorkManager?",
+      "answerText": "Receiver — для короткой реакции на системное событие; тяжёлую работу переносить в WorkManager/FGS.",
+      "difficulty": "hard"
+    }
+  ]
+}

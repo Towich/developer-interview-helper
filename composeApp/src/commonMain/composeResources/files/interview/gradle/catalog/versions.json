@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "gradle",
+  "categoryId": "catalog",
+  "themeId": "versions",
+  "themeTitle": "Version Catalog и управление версиями",
+  "questions": [
+    {
+      "id": "gradle-vcat-001",
+      "questionText": "Что такое libs.versions.toml?",
+      "answerText": "Файл каталога версий, библиотек и плагинов для type-safe accessors в Gradle Kotlin DSL.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "gradle-vcat-002",
+      "questionText": "Чем bundle отличается от отдельных library aliases?",
+      "answerText": "bundle группирует набор зависимостей одной строкой в dependencies блоке.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-vcat-003",
+      "questionText": "Как объявить плагин в catalog?",
+      "answerText": "Секция [plugins] + id и version; в root plugins { alias(libs.plugins.xxx) }.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-vcat-004",
+      "questionText": "Зачем dependencyResolutionManagement в settings?",
+      "answerText": "Принудительные репозитории, BOM/platform, единые правила для всех subprojects.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "gradle-vcat-005",
+      "questionText": "Как мигрировать с ext версий на catalog поэтапно?",
+      "answerText": "Начать с новых модулей, постепенно заменять строки, проверить IDE подсветку и CI кэш.",
+      "difficulty": "hard"
+    }
+  ]
+}

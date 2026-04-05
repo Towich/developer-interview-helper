@@ -34,6 +34,7 @@ private fun AddedQuestionDto.toMergedQuestion(): MergedQuestion = MergedQuestion
     id = id,
     questionText = questionText,
     answerText = answerText,
+    difficulty = difficulty.parseQuestionDifficulty(),
     technologyId = technologyId,
     categoryId = categoryId,
     themeId = themeId,
@@ -49,4 +50,5 @@ private fun MergedQuestion.toAddedDto(): AddedQuestionDto = AddedQuestionDto(
     themeTitle = themeTitle,
     questionText = questionText,
     answerText = answerText,
+    difficulty = difficulty.toJsonToken(),
 )

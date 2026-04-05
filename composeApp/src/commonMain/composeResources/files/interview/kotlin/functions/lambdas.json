@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "functions",
+  "themeId": "lambdas",
+  "themeTitle": "Функции, лямбды и области видимости",
+  "questions": [
+    {
+      "id": "kotlin-fn-001",
+      "questionText": "Что такое функция расширения?",
+      "answerText": "Синтаксический сахар: fun T.foo() — первый параметр receiver типа T.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-fn-002",
+      "questionText": "Чем it отличается от явного имени в лямбде одного параметра?",
+      "answerText": "it — неявное имя; явное имя улучшает читаемость в сложных лямбдах.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-fn-003",
+      "questionText": "Что делают scope-функции let/apply/run/with/also?",
+      "answerText": "let/also передают объект как it/this и возвращают результат блока/сам объект; apply/run/with — конфигурация receiver.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-fn-004",
+      "questionText": "Что такое trailing lambda?",
+      "answerText": "Лямбда вне скобок последним аргументом; синтаксис DSL и коллекций.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-fn-005",
+      "questionText": "Как работает локальная функция в Kotlin?",
+      "answerText": "Функция внутри функции видит внешние переменные (замыкание); удобно для разбиения без публичного API.",
+      "difficulty": "hard"
+    }
+  ]
+}

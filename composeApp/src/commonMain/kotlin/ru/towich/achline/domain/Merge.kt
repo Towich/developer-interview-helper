@@ -11,6 +11,7 @@ fun mergeBundleWithOverlay(
                     id = q.id,
                     questionText = q.questionText,
                     answerText = q.answerText,
+                    difficulty = q.difficulty,
                     technologyId = theme.technologyId,
                     categoryId = theme.categoryId,
                     themeId = theme.themeId,

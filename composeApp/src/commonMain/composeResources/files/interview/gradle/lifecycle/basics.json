@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "gradle",
+  "categoryId": "lifecycle",
+  "themeId": "basics",
+  "themeTitle": "Основы и жизненный цикл Gradle",
+  "questions": [
+    {
+      "id": "gradle-lc-001",
+      "questionText": "Что такое Gradle?",
+      "answerText": "Система сборки на JVM с моделью задач, DSL на Groovy/Kotlin, плагинами и кэшами.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "gradle-lc-002",
+      "questionText": "Чем configuration phase отличается от execution phase?",
+      "answerText": "Configuration строит граф задач и настройки; execution выполняет действия задач.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-lc-003",
+      "questionText": "Зачем Gradle Daemon?",
+      "answerText": "Долгоживущий JVM-процесс ускоряет инкрементальные сборки за счёт кэша классовloader и состояния.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-lc-004",
+      "questionText": "Что такое task inputs/outputs?",
+      "answerText": "Декларация для инкрементальности и build cache; неверные inputs ведут к некорректному UP-TO-DATE.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "gradle-lc-005",
+      "questionText": "Как работает Gradle Wrapper?",
+      "answerText": "gradlew фиксирует версию дистрибутива; воспроизводимые сборки в CI и у команды.",
+      "difficulty": "hard"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "reactive",
+  "themeId": "rxjava",
+  "themeTitle": "RxJava для собеседований",
+  "questions": [
+    {
+      "id": "kotlin-rx-001",
+      "questionText": "Что такое Observable в RxJava?",
+      "answerText": "Поток событий 0..N элементов; подписчик получает onNext/onError/onComplete.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-rx-002",
+      "questionText": "Чем Single отличается от Completable?",
+      "answerText": "Single — один элемент или ошибка; Completable — только завершение/ошибка без значения.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-rx-003",
+      "questionText": "Зачем subscribeOn и observeOn?",
+      "answerText": "subscribeOn — где стартует цепочка (часто IO); observeOn — где получают события (main для UI).",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-rx-004",
+      "questionText": "Как избежать утечек в Rx на Android?",
+      "answerText": "CompositeDisposable, dispose в onDestroy, автоматизация через RxLifecycle/autodispose.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-rx-005",
+      "questionText": "В чём разница между map и flatMap?",
+      "answerText": "map преобразует элемент; flatMap разворачивает вложенный Observable и сливает потоки (merge/switch).",
+      "difficulty": "hard"
+    }
+  ]
+}

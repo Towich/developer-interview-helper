@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "view",
+  "themeId": "view_xml",
+  "themeTitle": "View и XML",
+  "questions": [
+    {
+      "id": "android-view-xml-001",
+      "questionText": "Что такое View в Android?",
+      "answerText": "Базовый UI-элемент на экране: занимает прямоугольник, рисуется в onDraw, обрабатывает события и измеряется/раскладывается layout-ом.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-view-xml-002",
+      "questionText": "Чем отличаются match_parent и wrap_content?",
+      "answerText": "match_parent — занять всё доступное в родителе по оси; wrap_content — размер по содержимому согласно onMeasure.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-view-xml-003",
+      "questionText": "Для чего нужен ViewStub?",
+      "answerText": "Ленивое раздувание части иерархии: пока не inflated, не создаёт дочерние View — экономия на старте сложных экранов.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-view-xml-004",
+      "questionText": "Как устроены measure/layout passes у ViewGroup?",
+      "answerText": "Два прохода: measure (определение размеров с учётом режимов AT_MOST/EXACTLY/UNSPECIFIED), затем layout (позиции детей). Нарушение контрактов ведёт к лишним проходам.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-view-xml-005",
+      "questionText": "Почему нельзя держать ссылки на View после destroy Activity без осторожности?",
+      "answerText": "Риск утечек через контекст/слушатели; после onDestroy нужно снимать listeners, отменять анимации, не хранить Activity в static.",
+      "difficulty": "hard"
+    }
+  ]
+}

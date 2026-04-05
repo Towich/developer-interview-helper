@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "advanced",
+  "themeId": "advanced",
+  "themeTitle": "Продвинутые конструкции",
+  "questions": [
+    {
+      "id": "kotlin-adv-001",
+      "questionText": "Что такое inline-функция?",
+      "answerText": "Тело подставляется в место вызова; можно использовать reified, снижает стоимость лямбд при non-local returns осторожно.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-adv-002",
+      "questionText": "Что такое crossinline/noinline для лямбд?",
+      "answerText": "noinline — не инлайнится; crossinline запрещает non-local return из лямбды переданной в другой контекст.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-adv-003",
+      "questionText": "Как работает DSL с @DslMarker?",
+      "answerText": "Ограничивает неявные receivers, чтобы вложенные блоки не перепутали контексты.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-adv-004",
+      "questionText": "Что такое context receivers (Kotlin)?",
+      "answerText": "Явные требования контекста к функции без передачи параметром; влияет на сигнатуры и читаемость API.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-adv-005",
+      "questionText": "Когда применять expect/actual в KMP?",
+      "answerText": "Объявление в common, реализация per-platform; для IO, крипто, UI-примитивов.",
+      "difficulty": "hard"
+    }
+  ]
+}

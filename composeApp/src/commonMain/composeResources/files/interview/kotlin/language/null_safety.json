@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "language",
+  "themeId": "null_safety",
+  "themeTitle": "Null safety и типы",
+  "questions": [
+    {
+      "id": "kotlin-null-001",
+      "questionText": "Чем T? отличается от T в Kotlin?",
+      "answerText": "T? допускает null; T — non-null тип; компилятор отслеживает проверки и smart cast.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-null-002",
+      "questionText": "Что делает оператор ?: (Elvis)?",
+      "answerText": "Возвращает правую часть, если слева null; удобно для значений по умолчанию.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-null-003",
+      "questionText": "Чем отличаются !! и requireNotNull?",
+      "answerText": "!! бросает NPE с малоинформативным сообщением; requireNotNull даёт явное сообщение и используется для контрактов.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-null-004",
+      "questionText": "Как работает платформенный тип из Java?",
+      "answerText": "Неизвестная nullability; ответственность на разработчике; лучше аннотировать @Nullable/@NonNull на Java-стороне.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-null-005",
+      "questionText": "Что такое sealed class и зачем в моделировании состояний?",
+      "answerText": "Закрытый набор подтипов — исчерпывающий when без else, безопасные state-машины для UI.",
+      "difficulty": "hard"
+    }
+  ]
+}

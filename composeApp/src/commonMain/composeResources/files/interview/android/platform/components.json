@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "platform",
+  "themeId": "components",
+  "themeTitle": "Платформа и компоненты",
+  "questions": [
+    {
+      "id": "android-plat-001",
+      "questionText": "Что такое Activity?",
+      "answerText": "Компонент UI с окном; жизненный цикл onCreate…onDestroy; точка входа для экрана и intent-фильтров.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-plat-002",
+      "questionText": "Чем Fragment отличается от Activity?",
+      "answerText": "Фрагмент — контролируемый кусок UI внутри Activity, свой жизненный цикл, back stack через FragmentManager.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-plat-003",
+      "questionText": "Для чего нужен Service?",
+      "answerText": "Фоновая работа без UI; foreground service с уведомлением для долгих задач; ограничения на фон с Android 8+.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-plat-004",
+      "questionText": "Как доставляются BroadcastReceiver и чем ordered broadcast отличается?",
+      "answerText": "Система рассылает intent подписчикам; ordered — по цепочке с возможностью abort; implicit broadcast ограничены для фона.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-plat-005",
+      "questionText": "Как работает процесс и task affinity для Activity?",
+      "answerText": "Affinity группирует задачи; launchMode/singleTask влияет на стек; важно для deeplink и мультиоконности.",
+      "difficulty": "hard"
+    }
+  ]
+}

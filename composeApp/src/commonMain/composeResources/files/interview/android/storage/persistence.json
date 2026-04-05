@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "storage",
+  "themeId": "persistence",
+  "themeTitle": "Хранение данных",
+  "questions": [
+    {
+      "id": "android-store-001",
+      "questionText": "Что такое SharedPreferences?",
+      "answerText": "Key-value XML на диске; для мелких настроек; не для больших данных; async apply vs commit.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-store-002",
+      "questionText": "Когда выбрать Datastore вместо SharedPreferences?",
+      "answerText": "Типобезопасность, корутины/Flow, меньше ANR на больших записях, миграция с prefs.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-store-003",
+      "questionText": "Чем Room отличается от сырого SQLite?",
+      "answerText": "ORM-слой, compile-time проверка запросов, миграции, связь с Flow/LiveData.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-store-004",
+      "questionText": "Как версионировать схему БД в Room?",
+      "answerText": "@Database version, Migration объектами, destructive fallback только для dev.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-store-005",
+      "questionText": "Какие нюансы кэширования изображений (Coil/Glide)?",
+      "answerText": "Память/диск, размеры, placeholder, очистка при нехватке памяти, корректная отмена запросов в списках.",
+      "difficulty": "hard"
+    }
+  ]
+}

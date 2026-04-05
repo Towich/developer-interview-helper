@@ -9,6 +9,7 @@ data class MergedQuestion(
     val id: String,
     val questionText: String,
     val answerText: String,
+    val difficulty: QuestionDifficulty,
     val technologyId: String,
     val categoryId: String,
     val themeId: String,
@@ -28,6 +29,7 @@ data class BundleQuestion(
     val id: String,
     val questionText: String,
     val answerText: String,
+    val difficulty: QuestionDifficulty,
 )
 
 data class UserOverlayState(

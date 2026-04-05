@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "compose",
+  "themeId": "jetpack_compose",
+  "themeTitle": "Jetpack Compose",
+  "questions": [
+    {
+      "id": "android-compose-jpc-001",
+      "questionText": "Что такое recomposition в Jetpack Compose?",
+      "answerText": "Повторный вызов @Composable при изменении отслеживаемого состояния; Compose обновляет только затронутые участки дерева.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-compose-jpc-002",
+      "questionText": "Зачем remember { mutableStateOf(...) } вместо одного mutableStateOf?",
+      "answerText": "remember фиксирует один экземпляр state в узле композиции; без remember значение сбрасывалось бы при каждой рекомпозиции.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-compose-jpc-003",
+      "questionText": "Чем отличаются LaunchedEffect(Unit) и LaunchedEffect(key)?",
+      "answerText": "Unit запускает блок один раз при входе в композицию (пока не вышли). С ключом блок отменяется и перезапускается при смене key.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-compose-jpc-004",
+      "questionText": "Как работает snapshot system Compose и связь с recomposition?",
+      "answerText": "mutableState отслеживается snapshot-ом; при записи помечаются затронутые читатели, планируется рекомпозиция наблюдателей.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-compose-jpc-005",
+      "questionText": "Когда нужен SubcomposeLayout и какие компромиссы?",
+      "answerText": "Когда измерение дочерних элементов зависит от доступного места/друг друга (например, сложные адаптивные макеты). Сложнее отладка и стоимость измерения.",
+      "difficulty": "hard"
+    }
+  ]
+}

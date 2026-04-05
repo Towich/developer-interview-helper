@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "basics",
+  "themeId": "syntax",
+  "themeTitle": "Синтаксис и основы языка",
+  "questions": [
+    {
+      "id": "kotlin-base-001",
+      "questionText": "Чем val отличается от var?",
+      "answerText": "val — неизменяемая ссылка (read-only); var — можно переприсваивать.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-base-002",
+      "questionText": "Что такое строковые шаблоны \"$name\"?",
+      "answerText": "Интерполяция выражений в строках; для сложных выражений — фигурные скобки ${}.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-base-003",
+      "questionText": "Как работает when как выражение?",
+      "answerText": "Возвращает значение ветки; исчерпывающий для sealed/enum; else для неполных типов.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-base-004",
+      "questionText": "Что такое smart cast после проверки типа?",
+      "answerText": "Компилятор сужает тип после is/as? без явного каста в безопасном блоке.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-base-005",
+      "questionText": "Чем break с меткой отличается от обычного break?",
+      "answerText": "Выход из внешнего цикла/когда по @label; полезно для вложенных циклов.",
+      "difficulty": "hard"
+    }
+  ]
+}

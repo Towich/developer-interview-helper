@@ -61,6 +61,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlin.math.abs
 import kotlinx.coroutines.launch
+import ru.towich.achline.domain.QuestionDifficulty
 import ru.towich.achline.presentation.LocalInterviewRepository
 
 private val GradientPink = Color(0xFFFF4D8C)
@@ -194,8 +195,8 @@ fun InterviewScreen(
         AddQuestionDialog(
             themeOptions = state.themeOptions,
             onDismiss = { vm.dispatch(InterviewIntent.DismissAddDialog) },
-            onSubmit = { option, q, a ->
-                vm.dispatch(InterviewIntent.SubmitAddQuestion(option, q, a))
+            onSubmit = { option, q, a, difficulty ->
+                vm.dispatch(InterviewIntent.SubmitAddQuestion(option, q, a, difficulty))
             },
         )
     }
@@ -348,12 +349,16 @@ private fun SwipeableTopCard(
                     translationY = promoteOffsetY
                 },
         ) {
-            FlipInterviewCard(
-                card = card,
-                onToggleAnswer = onToggleAnswer,
-                modifier = Modifier.fillMaxSize(),
-                interactive = true,
-            )
+            // key: иначе animateFloatAsState переворота «прилипает» к слоту и при смене верхней
+            // карточки тянется 180°→0° (как будто новая карта переворачивается к вопросу).
+            key(card.question.id) {
+                FlipInterviewCard(
+                    card = card,
+                    onToggleAnswer = onToggleAnswer,
+                    modifier = Modifier.fillMaxSize(),
+                    interactive = true,
+                )
+            }
         }
     }
 }
@@ -436,10 +441,22 @@ private fun CardFrontFace(
             .background(CardInnerBg, RoundedCornerShape(26.dp)),
     ) {
         Box(modifier = Modifier.fillMaxSize().padding(horizontal = 22.dp, vertical = 18.dp)) {
-            ThemeChip(
-                text = "${card.question.technologyId} · ${card.question.themeTitle}",
-                modifier = Modifier.align(Alignment.TopStart),
-            )
+            Column(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(10.dp),
+            ) {
+                Text(
+                    text = "${card.question.technologyId} · ${card.question.themeTitle}",
+                    modifier = Modifier.fillMaxWidth(),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                )
+                DifficultyChip(difficulty = card.question.difficulty)
+            }
             Text(
                 text = card.question.questionText,
                 modifier = Modifier
@@ -535,7 +552,12 @@ private fun CardBackFace(
 }
 
 @Composable
-private fun ThemeChip(text: String, modifier: Modifier = Modifier) {
+private fun DifficultyChip(difficulty: QuestionDifficulty, modifier: Modifier = Modifier) {
+    val accent = when (difficulty) {
+        QuestionDifficulty.EASY -> Color(0xFF5CE1A6)
+        QuestionDifficulty.MEDIUM -> Color(0xFFFFC857)
+        QuestionDifficulty.HARD -> Color(0xFFFF6B8A)
+    }
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(50))
@@ -543,11 +565,10 @@ private fun ThemeChip(text: String, modifier: Modifier = Modifier) {
             .padding(horizontal = 14.dp, vertical = 8.dp),
     ) {
         Text(
-            text = text,
+            text = difficulty.labelRu,
             style = MaterialTheme.typography.labelMedium,
             fontWeight = FontWeight.Medium,
-            color = GradientPink,
-            maxLines = 2,
+            color = accent,
         )
     }
 }
@@ -587,11 +608,12 @@ private fun GenZGradientButton(
 private fun AddQuestionDialog(
     themeOptions: List<ThemeOption>,
     onDismiss: () -> Unit,
-    onSubmit: (ThemeOption, String, String) -> Unit,
+    onSubmit: (ThemeOption, String, String, QuestionDifficulty) -> Unit,
 ) {
     var questionText by remember { mutableStateOf("") }
     var answerText by remember { mutableStateOf("") }
     var selected by remember(themeOptions) { mutableStateOf(themeOptions.firstOrNull()) }
+    var difficulty by remember { mutableStateOf(QuestionDifficulty.MEDIUM) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -628,6 +650,36 @@ private fun AddQuestionDialog(
                         }
                     }
                 }
+                Text("Сложность", style = MaterialTheme.typography.labelLarge)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    listOf(
+                        QuestionDifficulty.EASY to "Лёгкий",
+                        QuestionDifficulty.MEDIUM to "Средний",
+                        QuestionDifficulty.HARD to "Сложный",
+                    ).forEach { (d, label) ->
+                        TextButton(
+                            onClick = { difficulty = d },
+                            modifier = Modifier.weight(1f),
+                        ) {
+                            Text(
+                                text = label,
+                                style = if (difficulty == d) {
+                                    MaterialTheme.typography.labelLarge
+                                } else {
+                                    MaterialTheme.typography.labelMedium
+                                },
+                                color = if (difficulty == d) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.onSurfaceVariant
+                                },
+                            )
+                        }
+                    }
+                }
                 OutlinedTextField(
                     value = questionText,
                     onValueChange = { questionText = it },
@@ -648,7 +700,7 @@ private fun AddQuestionDialog(
             TextButton(
                 onClick = {
                     val opt = selected ?: return@TextButton
-                    onSubmit(opt, questionText, answerText)
+                    onSubmit(opt, questionText, answerText, difficulty)
                     questionText = ""
                     answerText = ""
                 },

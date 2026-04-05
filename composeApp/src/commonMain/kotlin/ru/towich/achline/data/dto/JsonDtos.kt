@@ -23,6 +23,7 @@ data class ThemeQuestionDto(
     val id: String,
     val questionText: String,
     val answerText: String,
+    val difficulty: String,
 )
 
 @Serializable
@@ -40,6 +41,7 @@ data class AddedQuestionDto(
     val themeTitle: String,
     val questionText: String,
     val answerText: String,
+    val difficulty: String = "medium",
 )
 
 @Serializable

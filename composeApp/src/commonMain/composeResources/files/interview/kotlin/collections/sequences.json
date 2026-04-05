@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "collections",
+  "themeId": "sequences",
+  "themeTitle": "Коллекции и последовательности",
+  "questions": [
+    {
+      "id": "kotlin-coll-001",
+      "questionText": "Чем List отличается от MutableList?",
+      "answerText": "List — read-only интерфейс; MutableList позволяет изменять содержимое.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-coll-002",
+      "questionText": "Когда использовать Set вместо List?",
+      "answerText": "Уникальность элементов и быстрые проверки contains для реализаций на хэшах.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-coll-003",
+      "questionText": "Чем Sequence отличается от Iterable для цепочек map/filter?",
+      "answerText": "Sequence ленивая (промежуточные операции без немедленного списка); Iterable часто строит промежуточные коллекции.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-coll-004",
+      "questionText": "Какая сложность у get для LinkedHashMap vs HashMap?",
+      "answerText": "Обычно O(1) среднее для обеих; LinkedHashMap хранит порядок вставки с небольшим оверхедом памяти.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-coll-005",
+      "questionText": "Почему опасно модифировать коллекцию во время итерации?",
+      "answerText": "ConcurrentModificationException; использовать iterator.remove, snapshot-копии или структуры для concurrent сценариев.",
+      "difficulty": "hard"
+    }
+  ]
+}

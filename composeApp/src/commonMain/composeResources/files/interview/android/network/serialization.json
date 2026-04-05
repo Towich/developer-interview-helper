@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "network",
+  "themeId": "serialization",
+  "themeTitle": "Сеть и сериализация",
+  "questions": [
+    {
+      "id": "android-net-001",
+      "questionText": "Что такое Retrofit?",
+      "answerText": "Декларативный HTTP-клиент на OkHttp: интерфейсы с аннотациями, конвертеры (Moshi/Gson), suspend/call adapters.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-net-002",
+      "questionText": "Зачем interceptor в OkHttp?",
+      "answerText": "Перехват цепочки запросов: логирование, заголовки, токены, retry, кэш.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-net-003",
+      "questionText": "Чем JSON отличается от Protocol Buffers в мобильном клиенте?",
+      "answerText": "JSON текстовый и удобен для отладки; protobuf компактнее и быстрее, но нужна схема и генерация кода.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-net-004",
+      "questionText": "Как обрабатывать медленную сеть и таймауты?",
+      "answerText": "Разумные timeouts, retry с backoff, offline-кэш, idempotency для мутаций, UX с состоянием загрузки.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-net-005",
+      "questionText": "Что такое certificate pinning и когда он нужен?",
+      "answerText": "Фиксация доверенных ключей/пинов для защиты от поддельных CA в корпоративных/высокорисковых сценариях; усложняет ротацию.",
+      "difficulty": "hard"
+    }
+  ]
+}

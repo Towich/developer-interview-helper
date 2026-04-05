@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "concurrency",
+  "themeId": "coroutines_flow",
+  "themeTitle": "Coroutines и Flow",
+  "questions": [
+    {
+      "id": "kotlin-co-001",
+      "questionText": "Чем корутина отличается от потока ОС?",
+      "answerText": "Корутина легковесна и планируется в userspace на ограниченном пуле потоков; поток ОС дороже по памяти и переключению.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-co-002",
+      "questionText": "Для чего нужен suspend?",
+      "answerText": "Помечает функцию с точками приостановки без блокировки потока; continuation-преобразование компилятором.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-co-003",
+      "questionText": "Что такое structured concurrency?",
+      "answerText": "Иерархия Job: отмена детей с родителем, supervisor для изолированных ошибок, scope задаёт границу жизни.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-co-004",
+      "questionText": "Cold vs hot Flow — в чём разница?",
+      "answerText": "Cold эмитит заново каждому подписчику; hot (SharedState/Channel) — мультикаст и разделяемое состояние.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-co-005",
+      "questionText": "Как избежать отмены долгой операции в finally без NonCancellable?",
+      "answerText": "Делить работу на чекпоинты, withContext(NonCancellable) только для критичных cleanup-участков, корректные try/finally.",
+      "difficulty": "hard"
+    }
+  ]
+}

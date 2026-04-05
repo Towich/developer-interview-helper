@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "extras",
+  "themeId": "misc",
+  "themeTitle": "Дополнительно (Kotlin)",
+  "questions": [
+    {
+      "id": "kotlin-x-001",
+      "questionText": "Что такое data class?",
+      "answerText": "Автоequals/hashCode/toString/copy; удобен для DTO и immutable моделей.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-x-002",
+      "questionText": "Зачем object в Kotlin?",
+      "answerText": "Синглтон или объект выражения; companion object — статическая область для класса.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-x-003",
+      "questionText": "Что такое inline class (value class)?",
+      "answerText": "Обёртка без аллокации в ряде случаев; типобезопасные идентификаторы без оверхеда класса-оболочки.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-x-004",
+      "questionText": "Как работает contract в стандартной библиотеке?",
+      "answerText": "Дополнительные гарантии для компилятора (например, isTrue -> value не null); осторожно с корректностью.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-x-005",
+      "questionText": "Чем open class отличается от sealed/interface для дизайна API?",
+      "answerText": "open — наследование по умолчанию разрешено; sealed — закрытый набор; interface — контракт без состояния (до 1.8 осторожно с полями).",
+      "difficulty": "hard"
+    }
+  ]
+}

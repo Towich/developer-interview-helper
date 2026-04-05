@@ -91,6 +91,7 @@ class InterviewViewModel(
                         ),
                         questionText = q,
                         answerText = a,
+                        difficulty = intent.difficulty,
                     ),
                 )
                 _uiState.update { it.copy(showAddDialog = false) }

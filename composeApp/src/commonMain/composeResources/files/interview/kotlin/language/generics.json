@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "language",
+  "themeId": "generics",
+  "themeTitle": "Дженерики и вариантность",
+  "questions": [
+    {
+      "id": "kotlin-gen-001",
+      "questionText": "Что такое дженерик-класс List<T>?",
+      "answerText": "Параметризация типом; компилятор обеспечивает типобезопасность на этапе компиляции (type erasure на JVM).",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-gen-002",
+      "questionText": "Чем отличаются in и out (вариантность)?",
+      "answerText": "out — ковариантность (производитель), можно читать T; in — контравариантность (потребитель), можно писать T.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-gen-003",
+      "questionText": "Почему Array инвариантен в Kotlin?",
+      "answerText": "Массивы мутируемы; ковариантность сломала бы типобезопасность при записи.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-gen-004",
+      "questionText": "Что такое star projection List<*>?",
+      "answerText": "Неизвестный аргумент; для чтения — Any?; запись обычно запрещена кроме специальных случаев.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-gen-005",
+      "questionText": "Как reified помогает в inline-функциях?",
+      "answerText": "Тип доступен во время компиляции в теле inline; можно использовать ::class без Class-токена.",
+      "difficulty": "hard"
+    }
+  ]
+}

@@ -93,6 +93,7 @@ fun reduceInterviewSession(
                 id = newUserQuestionId(),
                 questionText = event.questionText.trim(),
                 answerText = event.answerText.trim(),
+                difficulty = event.difficulty,
                 technologyId = event.theme.technologyId,
                 categoryId = event.theme.categoryId,
                 themeId = event.theme.themeId,

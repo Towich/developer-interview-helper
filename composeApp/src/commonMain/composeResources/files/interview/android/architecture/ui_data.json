@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "architecture",
+  "themeId": "ui_data",
+  "themeTitle": "Архитектура UI и данные",
+  "questions": [
+    {
+      "id": "android-arch-ui-001",
+      "questionText": "Что такое MVVM на Android?",
+      "answerText": "Разделение: View (Activity/Fragment/Compose), ViewModel хранит UI-состояние и бизнес-вызовы, Model — данные/репозитории.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-arch-ui-002",
+      "questionText": "Зачем Repository между ViewModel и источниками данных?",
+      "answerText": "Единая точка доступа к сети/БД/кэшу, кэширование, маппинг DTO→domain, тестируемость ViewModel.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-arch-ui-003",
+      "questionText": "Чем StateFlow отличается от SharedFlow для UI-состояния?",
+      "answerText": "StateFlow всегда хранит последнее значение (удобно для экрана). SharedFlow — события без обязательного последнего значения (навигация, снэкбары), нужен replay/костыли для состояния.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-arch-ui-004",
+      "questionText": "Как Single Activity + Navigation Component влияет на жизненный цикл ViewModel?",
+      "answerText": "NavBackStackEntry как владелец ViewModel по графу; важно задавать правильный scope и не смешивать глобальные синглтоны с экранными VM.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-arch-ui-005",
+      "questionText": "Какие проблемы даёт «бог-Activity» и как их снять?",
+      "answerText": "Смешение UI, навигации, сети и БД; вынос use-case-ов, модульность, UDF/MVI, тесты на domain без Robolectric.",
+      "difficulty": "hard"
+    }
+  ]
+}

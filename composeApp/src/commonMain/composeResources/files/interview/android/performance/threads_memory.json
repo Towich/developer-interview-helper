@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "performance",
+  "themeId": "threads_memory",
+  "themeTitle": "Потоки, производительность и память",
+  "questions": [
+    {
+      "id": "android-perf-001",
+      "questionText": "Почему нельзя блокировать main thread?",
+      "answerText": "ANR при долгих операциях; UI не обрабатывает события ~5 c; сеть/БД — в фоне.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-perf-002",
+      "questionText": "Что такое ANR и как его диагностировать?",
+      "answerText": "Application Not Responding; traces в logcat/Play Vitals; профилировщик, StrictMode, main-thread watchdog.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-perf-003",
+      "questionText": "Как бороться с утечками памяти из-за Handler?",
+      "answerText": "Использовать static Runnable + WeakReference, убирать callbacks в onDestroy, lifecycle-aware корутины.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-perf-004",
+      "questionText": "Чем профилировать jank и overdraw?",
+      "answerText": "GPU rendering profile, Layout Inspector, Systrace/Perfetto; уменьшение вложенности, кэширование measure, hardware layers осторожно.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-perf-005",
+      "questionText": "Как работает GC в ART на уровне интервью?",
+      "answerText": "Поколенческий сборщик, pause times, большие объекты; избегать лишних аллокаций в горячих путях UI.",
+      "difficulty": "hard"
+    }
+  ]
+}

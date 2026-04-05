@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "gradle",
+  "categoryId": "dependencies",
+  "themeId": "resolution",
+  "themeTitle": "Зависимости и разрешение артефактов",
+  "questions": [
+    {
+      "id": "gradle-dep-001",
+      "questionText": "Что такое Maven Central и google() репозитории?",
+      "answerText": "Источники артефактов; google() для AndroidX/AGP, Maven Central для большинства OSS.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "gradle-dep-002",
+      "questionText": "Чем implementation отличается от compileOnly?",
+      "answerText": "compileOnly доступна только на compile classpath (например аннотации); не попадает в runtime apk.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-dep-003",
+      "questionText": "Что такое BOM (Bill of Materials)?",
+      "answerText": "platform(...) фиксирует согласованные версии набора библиотек (например Firebase BOM).",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-dep-004",
+      "questionText": "Как разрешить конфликт версий транзитивных зависимостей?",
+      "answerText": "resolutionStrategy.force, constraints, exclude с обоснованием, dependencyInsight задача.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "gradle-dep-005",
+      "questionText": "Что делают dependency substitution rules?",
+      "answerText": "Заменить модуль на project() или другую версию для composite/local разработки.",
+      "difficulty": "hard"
+    }
+  ]
+}

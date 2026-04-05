@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "gradle",
+  "categoryId": "dsl",
+  "themeId": "projects",
+  "themeTitle": "DSL файлы и проекты",
+  "questions": [
+    {
+      "id": "gradle-dsl-001",
+      "questionText": "Для чего settings.gradle.kts?",
+      "answerText": "Имя проекта, include модулей, pluginManagement, dependencyResolutionManagement.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "gradle-dsl-002",
+      "questionText": "Что задаёт build.gradle.kts у модуля?",
+      "answerText": "Плагины, зависимости, android {} или kotlin {} блоки, flavors, signing для приложения.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-dsl-003",
+      "questionText": "Зачем gradle.properties?",
+      "answerText": "Флаги JVM, org.gradle.parallel, kotlin options, кастомные ключи для CI.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-dsl-004",
+      "questionText": "Что такое extra properties ext / typed accessors?",
+      "answerText": "Хранение переменных на проекте; в Kotlin DSL предпочтительны buildscript или extensions.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "gradle-dsl-005",
+      "questionText": "Как связаны rootProject и subprojects?",
+      "answerText": "Иерархия проектов; allprojects/subprojects для общих репозиториев и версий (осторожно с coupling).",
+      "difficulty": "hard"
+    }
+  ]
+}

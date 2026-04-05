@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "kotlin",
+  "categoryId": "language",
+  "themeId": "delegation",
+  "themeTitle": "Делегирование и свойства",
+  "questions": [
+    {
+      "id": "kotlin-del-001",
+      "questionText": "Что такое делегирование класса в Kotlin?",
+      "answerText": "class Foo(bar: Bar) : Interface by bar — переадресация методов интерфейса делегату.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "kotlin-del-002",
+      "questionText": "Что делает lazy { } для свойства?",
+      "answerText": "Инициализация при первом обращении; по умолчанию thread-safe (Synchronized).",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-del-003",
+      "questionText": "Как работает observable delegate (Delegates.observable)?",
+      "answerText": "Колбэк после изменения значения; удобно для логирования/биндинга с осторожностью к рекурсии.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "kotlin-del-004",
+      "questionText": "Чем отличаются lateinit var от by lazy?",
+      "answerText": "lateinit для ненуллабельных с поздней инициализацией без значения; lazy — вычисление значения при первом чтении.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "kotlin-del-005",
+      "questionText": "Когда использовать custom property delegate?",
+      "answerText": "Повторяющаяся логика (prefs, savedStateHandle-обёртки), единообразный доступ к ресурсам.",
+      "difficulty": "hard"
+    }
+  ]
+}

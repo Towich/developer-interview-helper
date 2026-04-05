@@ -14,6 +14,7 @@ fun ThemeBundleDto.toDomain(): ThemeBundleData = ThemeBundleData(
             id = it.id,
             questionText = it.questionText,
             answerText = it.answerText,
+            difficulty = it.difficulty.parseQuestionDifficulty(),
         )
     },
 )

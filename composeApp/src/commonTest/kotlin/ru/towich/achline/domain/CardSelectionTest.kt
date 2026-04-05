@@ -2,6 +2,7 @@ package ru.towich.achline.domain
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import ru.towich.achline.domain.QuestionDifficulty
 
 class CardSelectionTest {
 
@@ -12,6 +13,7 @@ class CardSelectionTest {
         id = id,
         questionText = "q",
         answerText = "a",
+        difficulty = QuestionDifficulty.MEDIUM,
         technologyId = "t",
         categoryId = "c",
         themeId = themeId,

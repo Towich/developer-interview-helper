@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "testing",
+  "themeId": "basics",
+  "themeTitle": "Тестирование",
+  "questions": [
+    {
+      "id": "android-test-001",
+      "questionText": "Чем unit-тест отличается от instrumented-теста?",
+      "answerText": "Unit на JVM без устройства; instrumented на эмуляторе/девайсе с Android framework.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "android-test-002",
+      "questionText": "Что такое Espresso?",
+      "answerText": "Фреймворк UI-тестов: синхронизация с main thread, matchers, idling resources.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-test-003",
+      "questionText": "Зачем mock в тестах репозитория?",
+      "answerText": "Изолировать ViewModel/use-case от сети/БД; предсказуемые сценарии и быстрые тесты.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "android-test-004",
+      "questionText": "Как тестировать Compose?",
+      "answerText": "composeTestRule, семантика и testTag, idle для анимаций; избегать хрупких селекторов по тексту где возможно.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "android-test-005",
+      "questionText": "Что такое флайки-тесты и как снизить flakiness?",
+      "answerText": "Нестабильные из-за таймингов/анимаций; явные ожидания, стабильные id, отключение анимаций в CI, повтор с диагностикой.",
+      "difficulty": "hard"
+    }
+  ]
+}

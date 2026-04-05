@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "gradle",
+  "categoryId": "modules",
+  "themeId": "structure",
+  "themeTitle": "Многомодульность и структура репозитория",
+  "questions": [
+    {
+      "id": "gradle-mod-001",
+      "questionText": "Зачем разбивать проект на модули?",
+      "answerText": "Изоляция фич, параллельная сборка, переиспользование, границы зависимостей.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "gradle-mod-002",
+      "questionText": "Чем api отличается от implementation в Gradle?",
+      "answerText": "api протаскивает зависимость транзитивно наружу; implementation — внутренняя деталь модуля.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-mod-003",
+      "questionText": "Что такое composite build?",
+      "answerText": "Подключение другого Gradle-проекта через includeBuild для локальной разработки библиотек.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "gradle-mod-004",
+      "questionText": "Как избежать циклических зависимостей между модулями?",
+      "answerText": "Выделить :core:api и :core:impl, инверсия зависимостей, feature-модули зависят от интерфейсов.",
+      "difficulty": "hard"
+    },
+    {
+      "id": "gradle-mod-005",
+      "questionText": "Зачем централизовать версии в root?",
+      "answerText": "Единообразие, меньше дрейфа версий между модулями; Version Catalog усиливает это.",
+      "difficulty": "hard"
+    }
+  ]
+}
