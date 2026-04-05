@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.towich.achline.domain.interview.InterviewSessionEvent
 import ru.towich.achline.domain.interview.InterviewSessionState
-import ru.towich.achline.domain.interview.ThemeRef
 import ru.towich.achline.domain.interview.reduceInterviewSession
 import ru.towich.achline.domain.UserOverlayState
 import ru.towich.achline.domain.progressFor
@@ -44,21 +43,6 @@ class InterviewViewModel(
 
     fun dispatch(intent: InterviewIntent) {
         when (intent) {
-            InterviewIntent.OpenAddDialog ->
-                _uiState.update { it.copy(showAddDialog = true) }
-
-            InterviewIntent.DismissAddDialog ->
-                _uiState.update { it.copy(showAddDialog = false) }
-
-            InterviewIntent.OpenDeleteConfirm -> {
-                if (session.stackIds.isNotEmpty()) {
-                    _uiState.update { it.copy(showDeleteConfirm = true) }
-                }
-            }
-
-            InterviewIntent.DismissDeleteConfirm ->
-                _uiState.update { it.copy(showDeleteConfirm = false) }
-
             is InterviewIntent.ToggleAnswer -> {
                 val id = intent.questionId
                 if (!answerVisibleIds.add(id)) {
@@ -76,32 +60,6 @@ class InterviewViewModel(
                 applySessionEvent(InterviewSessionEvent.SwipeRight) {
                     session.stackIds.firstOrNull()?.let { answerVisibleIds.remove(it) }
                 }
-
-            is InterviewIntent.SubmitAddQuestion -> {
-                val q = intent.questionText.trim()
-                val a = intent.answerText.trim()
-                if (q.isEmpty() || a.isEmpty()) return
-                applySessionEvent(
-                    InterviewSessionEvent.AddUserQuestion(
-                        theme = ThemeRef(
-                            technologyId = intent.option.technologyId,
-                            categoryId = intent.option.categoryId,
-                            themeId = intent.option.themeId,
-                            themeTitle = intent.option.themeTitle,
-                        ),
-                        questionText = q,
-                        answerText = a,
-                        difficulty = intent.difficulty,
-                    ),
-                )
-                _uiState.update { it.copy(showAddDialog = false) }
-            }
-
-            InterviewIntent.ConfirmRemoveTopCard -> {
-                session.stackIds.firstOrNull()?.let { answerVisibleIds.remove(it) }
-                applySessionEvent(InterviewSessionEvent.ConfirmRemoveTopCard)
-                _uiState.update { it.copy(showDeleteConfirm = false) }
-            }
         }
     }
 
@@ -120,9 +78,6 @@ class InterviewViewModel(
 
     private fun emitUiFromSession() {
         val merged = session.mergedPool()
-        val options = session.bundleThemes
-            .map { ThemeOption(it.technologyId, it.categoryId, it.themeId, it.themeTitle) }
-            .distinct()
         _uiState.update { s ->
             s.copy(
                 isLoading = false,
@@ -137,7 +92,6 @@ class InterviewViewModel(
                         answerVisible = id in answerVisibleIds,
                     )
                 },
-                themeOptions = options,
             )
         }
     }

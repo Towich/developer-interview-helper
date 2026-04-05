@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,20 +20,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.LaunchedEffect
@@ -137,68 +128,11 @@ fun InterviewScreen(
                             .fillMaxSize()
                             .windowInsetsPadding(WindowInsets.statusBars)
                             .windowInsetsPadding(WindowInsets.navigationBars)
-                            .padding(bottom = 100.dp, top = 12.dp, start = 18.dp, end = 18.dp),
+                            .padding(bottom = 24.dp, top = 12.dp, start = 18.dp, end = 18.dp),
                     )
                 }
             }
         }
-
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .windowInsetsPadding(WindowInsets.navigationBars)
-                .padding(horizontal = 22.dp, vertical = 18.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            FloatingActionButton(
-                onClick = { vm.dispatch(InterviewIntent.OpenDeleteConfirm) },
-                modifier = Modifier.size(58.dp),
-                containerColor = Color(0xFF2A1F3D),
-                contentColor = GradientPink,
-                elevation = FloatingActionButtonDefaults.loweredElevation(),
-            ) {
-                Text("✕", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            }
-            FloatingActionButton(
-                onClick = { vm.dispatch(InterviewIntent.OpenAddDialog) },
-                modifier = Modifier.size(58.dp),
-                containerColor = Color(0xFF2A1F3D),
-                contentColor = GradientCyan,
-                elevation = FloatingActionButtonDefaults.loweredElevation(),
-            ) {
-                Text("+", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            }
-        }
-    }
-
-    if (state.showDeleteConfirm) {
-        AlertDialog(
-            onDismissRequest = { vm.dispatch(InterviewIntent.DismissDeleteConfirm) },
-            title = { Text("Удалить карточку?") },
-            text = { Text("Текущая верхняя карточка будет скрыта из тренировки (для вопросов из бандла — мягкое удаление).") },
-            confirmButton = {
-                TextButton(onClick = { vm.dispatch(InterviewIntent.ConfirmRemoveTopCard) }) {
-                    Text("Удалить")
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { vm.dispatch(InterviewIntent.DismissDeleteConfirm) }) {
-                    Text("Отмена")
-                }
-            },
-        )
-    }
-
-    if (state.showAddDialog) {
-        AddQuestionDialog(
-            themeOptions = state.themeOptions,
-            onDismiss = { vm.dispatch(InterviewIntent.DismissAddDialog) },
-            onSubmit = { option, q, a, difficulty ->
-                vm.dispatch(InterviewIntent.SubmitAddQuestion(option, q, a, difficulty))
-            },
-        )
     }
 }
 
@@ -602,117 +536,4 @@ private fun GenZGradientButton(
             color = Color.White,
         )
     }
-}
-
-@Composable
-private fun AddQuestionDialog(
-    themeOptions: List<ThemeOption>,
-    onDismiss: () -> Unit,
-    onSubmit: (ThemeOption, String, String, QuestionDifficulty) -> Unit,
-) {
-    var questionText by remember { mutableStateOf("") }
-    var answerText by remember { mutableStateOf("") }
-    var selected by remember(themeOptions) { mutableStateOf(themeOptions.firstOrNull()) }
-    var difficulty by remember { mutableStateOf(QuestionDifficulty.MEDIUM) }
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        title = { Text("Новый вопрос") },
-        text = {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                if (themeOptions.isEmpty()) {
-                    Text("Нет тем из бандла — добавьте JSON-файлы тем в ресурсы.")
-                } else {
-                    Text("Тема", style = MaterialTheme.typography.labelLarge)
-                    themeOptions.forEach { option ->
-                        TextButton(
-                            onClick = { selected = option },
-                            modifier = Modifier.fillMaxWidth(),
-                        ) {
-                            Text(
-                                text = option.label,
-                                style = if (option == selected) {
-                                    MaterialTheme.typography.bodyLarge
-                                } else {
-                                    MaterialTheme.typography.bodyMedium
-                                },
-                                color = if (option == selected) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.onSurface
-                                },
-                            )
-                        }
-                    }
-                }
-                Text("Сложность", style = MaterialTheme.typography.labelLarge)
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    listOf(
-                        QuestionDifficulty.EASY to "Лёгкий",
-                        QuestionDifficulty.MEDIUM to "Средний",
-                        QuestionDifficulty.HARD to "Сложный",
-                    ).forEach { (d, label) ->
-                        TextButton(
-                            onClick = { difficulty = d },
-                            modifier = Modifier.weight(1f),
-                        ) {
-                            Text(
-                                text = label,
-                                style = if (difficulty == d) {
-                                    MaterialTheme.typography.labelLarge
-                                } else {
-                                    MaterialTheme.typography.labelMedium
-                                },
-                                color = if (difficulty == d) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.onSurfaceVariant
-                                },
-                            )
-                        }
-                    }
-                }
-                OutlinedTextField(
-                    value = questionText,
-                    onValueChange = { questionText = it },
-                    label = { Text("Вопрос") },
-                    modifier = Modifier.fillMaxWidth(),
-                    minLines = 2,
-                )
-                OutlinedTextField(
-                    value = answerText,
-                    onValueChange = { answerText = it },
-                    label = { Text("Ответ") },
-                    modifier = Modifier.fillMaxWidth(),
-                    minLines = 3,
-                )
-            }
-        },
-        confirmButton = {
-            TextButton(
-                onClick = {
-                    val opt = selected ?: return@TextButton
-                    onSubmit(opt, questionText, answerText, difficulty)
-                    questionText = ""
-                    answerText = ""
-                },
-                enabled = selected != null && questionText.isNotBlank() && answerText.isNotBlank(),
-            ) {
-                Text("Сохранить")
-            }
-        },
-        dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("Отмена")
-            }
-        },
-    )
 }
