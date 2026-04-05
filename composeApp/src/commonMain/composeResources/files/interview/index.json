@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "themePaths": [
+    "kotlin/language/coroutines.json",
+    "android/jetpack/compose_basics.json"
+  ]
+}

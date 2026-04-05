@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "android",
+  "categoryId": "jetpack",
+  "themeId": "compose_basics",
+  "themeTitle": "Compose: основы",
+  "questions": [
+    {
+      "id": "android-compose-001",
+      "questionText": "Что такое recomposition в Jetpack Compose?",
+      "answerText": "Повторный запуск @Composable-функций для обновления UI при изменении отслеживаемого состояния. Compose сравнивает дерево и применяет минимальные изменения."
+    },
+    {
+      "id": "android-compose-002",
+      "questionText": "Зачем remember в Compose?",
+      "answerText": "Сохраняет значение в композиции между рекомпозициями, чтобы не терять состояние и не пересоздавать дорогие объекты при каждом проходе."
+    },
+    {
+      "id": "android-compose-003",
+      "questionText": "Чем отличаются mutableStateOf и remember { mutableStateOf(...) }?",
+      "answerText": "mutableStateOf создаёт observable-состояние; remember фиксирует один и тот же экземпляр state на месте в дереве композиции, иначе состояние сбрасывалось бы при каждой рекомпозиции."
+    }
+  ]
+}
