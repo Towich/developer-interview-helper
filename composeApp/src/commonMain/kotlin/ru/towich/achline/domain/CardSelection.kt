@@ -24,7 +24,7 @@ fun selectNextQuestion(
             candidates.minWithOrNull(
                 compareBy<MergedQuestion>(
                     { progress.p(it.id).correctCount },
-                    { -(progress.p(it.id).shownCount - progress.p(it.id).correctCount) },
+                    { progress.p(it.id).shownCount },
                     { it.id },
                 ),
             )

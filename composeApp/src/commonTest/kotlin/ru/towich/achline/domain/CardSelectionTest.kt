@@ -67,7 +67,7 @@ class CardSelectionTest {
     }
 
     @Test
-    fun selectNext_leastAnswered_prefersLowerCorrectThenHigherShownMinusCorrect() {
+    fun selectNext_leastAnswered_prefersLowerCorrectThenLowerShown() {
         val pool = listOf(q("a"), q("b"), q("c"))
         val progress = mapOf(
             "a" to Progress(1, 10),
@@ -75,7 +75,7 @@ class CardSelectionTest {
             "c" to Progress(0, 5),
         )
         val next = selectNextQuestion(pool, progress, emptySet(), InterviewStackMode.LeastAnswered)
-        assertEquals("c", next?.id)
+        assertEquals("b", next?.id)
     }
 
     @Test
