@@ -1,5 +1,6 @@
 package ru.towich.achline.domain.interview
 
+import ru.towich.achline.domain.InterviewStackMode
 import ru.towich.achline.domain.MergedQuestion
 import ru.towich.achline.domain.ThemeBundleData
 import ru.towich.achline.domain.UserOverlayState
@@ -18,12 +19,13 @@ private fun fillStackIds(
     bundleThemes: List<ThemeBundleData>,
     overlay: UserOverlayState,
     stackIds: List<String>,
+    stackMode: InterviewStackMode,
 ): List<String> {
     val merged = mergeBundleWithOverlay(bundleThemes, overlay)
     val target = minOf(3, merged.size).coerceAtLeast(0)
     val result = stackIds.toMutableList()
     while (result.size < target) {
-        val next = selectNextQuestion(merged, overlay.progress, result.toSet()) ?: break
+        val next = selectNextQuestion(merged, overlay.progress, result.toSet(), stackMode) ?: break
         result += next.id
     }
     return result
@@ -47,13 +49,14 @@ fun reduceInterviewSession(
         is InterviewSessionEvent.Initialized -> {
             val merged = mergeBundleWithOverlay(event.bundleThemes, event.overlay)
             val depth = minOf(3, merged.size)
-            var stackIds = pickStackQuestionIds(merged, event.overlay.progress, depth)
+            var stackIds = pickStackQuestionIds(merged, event.overlay.progress, depth, event.stackMode)
             val (overlay, changed) = bumpShownForTopIfAny(event.bundleThemes, event.overlay, stackIds)
             InterviewSessionReduction(
                 state = InterviewSessionState(
                     bundleThemes = event.bundleThemes,
                     overlay = overlay,
                     stackIds = stackIds,
+                    stackMode = event.stackMode,
                 ),
                 persistOverlay = changed,
             )
@@ -64,7 +67,7 @@ fun reduceInterviewSession(
                 ?: return InterviewSessionReduction(state, persistOverlay = false)
             var overlay = state.overlay.withProgress(top) { it.copy(correctCount = it.correctCount + 1) }
             var stackIds = state.stackIds.drop(1)
-            stackIds = fillStackIds(state.bundleThemes, overlay, stackIds)
+            stackIds = fillStackIds(state.bundleThemes, overlay, stackIds, state.stackMode)
             val bump = bumpShownForTopIfAny(state.bundleThemes, overlay, stackIds)
             overlay = bump.first
             InterviewSessionReduction(
@@ -79,7 +82,7 @@ fun reduceInterviewSession(
             }
             var overlay = state.overlay
             var stackIds = state.stackIds.drop(1)
-            stackIds = fillStackIds(state.bundleThemes, overlay, stackIds)
+            stackIds = fillStackIds(state.bundleThemes, overlay, stackIds, state.stackMode)
             val bump = bumpShownForTopIfAny(state.bundleThemes, overlay, stackIds)
             overlay = bump.first
             InterviewSessionReduction(
@@ -101,7 +104,7 @@ fun reduceInterviewSession(
                 fromBundle = false,
             )
             val overlay = state.overlay.copy(addedQuestions = state.overlay.addedQuestions + mq)
-            var stackIds = fillStackIds(state.bundleThemes, overlay, state.stackIds)
+            var stackIds = fillStackIds(state.bundleThemes, overlay, state.stackIds, state.stackMode)
             InterviewSessionReduction(
                 state = state.copy(overlay = overlay, stackIds = stackIds),
                 persistOverlay = true,
@@ -120,7 +123,7 @@ fun reduceInterviewSession(
                 state.overlay.copy(addedQuestions = state.overlay.addedQuestions.filter { it.id != id })
             }
             var stackIds = state.stackIds.filter { it != id }
-            stackIds = fillStackIds(state.bundleThemes, overlay, stackIds)
+            stackIds = fillStackIds(state.bundleThemes, overlay, stackIds, state.stackMode)
             val bump = bumpShownForTopIfAny(state.bundleThemes, overlay, stackIds)
             overlay = bump.first
             InterviewSessionReduction(

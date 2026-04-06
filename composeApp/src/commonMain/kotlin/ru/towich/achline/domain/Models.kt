@@ -5,6 +5,10 @@ data class Progress(
     val shownCount: Int = 0,
 )
 
+/** Каждый зафиксированный показ завершён успехом (свайп вправо). Такие вопросы не попадают в режим «Реже отвечал». */
+fun Progress.hasOnlyCorrectAnswers(): Boolean =
+    shownCount > 0 && correctCount == shownCount
+
 data class MergedQuestion(
     val id: String,
     val questionText: String,

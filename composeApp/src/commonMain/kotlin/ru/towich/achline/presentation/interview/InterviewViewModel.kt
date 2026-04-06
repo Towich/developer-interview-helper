@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.towich.achline.domain.InterviewStackMode
 import ru.towich.achline.domain.interview.InterviewSessionEvent
 import ru.towich.achline.domain.interview.InterviewSessionState
 import ru.towich.achline.domain.interview.reduceInterviewSession
@@ -16,6 +17,7 @@ import ru.towich.achline.domain.repository.InterviewRepository
 
 class InterviewViewModel(
     private val repository: InterviewRepository,
+    private val stackMode: InterviewStackMode,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(InterviewUiState())
@@ -25,6 +27,7 @@ class InterviewViewModel(
         bundleThemes = emptyList(),
         overlay = UserOverlayState(),
         stackIds = emptyList(),
+        stackMode = stackMode,
     )
     private val answerVisibleIds = mutableSetOf<String>()
 
@@ -32,7 +35,7 @@ class InterviewViewModel(
         viewModelScope.launch {
             runCatching {
                 val (themes, overlay) = repository.loadBundleAndOverlay()
-                applySessionEvent(InterviewSessionEvent.Initialized(themes, overlay))
+                applySessionEvent(InterviewSessionEvent.Initialized(themes, overlay, stackMode))
             }.onFailure { e ->
                 _uiState.update {
                     it.copy(isLoading = false, error = e.message ?: e.toString())

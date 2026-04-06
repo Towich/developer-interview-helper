@@ -12,38 +12,64 @@ fun selectNextQuestion(
     pool: List<MergedQuestion>,
     progress: Map<String, Progress>,
     excludedIds: Set<String>,
+    mode: InterviewStackMode = InterviewStackMode.AllQuestions,
 ): MergedQuestion? {
     val selectable = pool.filter { it.id !in excludedIds }
     if (selectable.isEmpty()) return null
 
-    val themeIdsWithPick = selectable.map { it.themeId }.toSet()
+    return when (mode) {
+        InterviewStackMode.LeastAnswered -> {
+            val candidates = selectable.filter { q -> !progress.p(q.id).hasOnlyCorrectAnswers() }
+            if (candidates.isEmpty()) return null
+            candidates.minWithOrNull(
+                compareBy<MergedQuestion>(
+                    { progress.p(it.id).correctCount },
+                    { -(progress.p(it.id).shownCount - progress.p(it.id).correctCount) },
+                    { it.id },
+                ),
+            )
+        }
 
-    fun themeCorrectSum(themeId: String): Int =
-        pool.asSequence()
-            .filter { it.themeId == themeId }
-            .sumOf { progress.p(it.id).correctCount }
+        InterviewStackMode.AllQuestions -> {
+            val themeIdsWithPick = selectable.map { it.themeId }.toSet()
 
-    fun themeShownSum(themeId: String): Int =
-        pool.asSequence()
-            .filter { it.themeId == themeId }
-            .sumOf { progress.p(it.id).shownCount }
+            fun themeCorrectSum(themeId: String): Int =
+                pool.asSequence()
+                    .filter { it.themeId == themeId }
+                    .sumOf { progress.p(it.id).correctCount }
 
-    val bestTheme = themeIdsWithPick.minWithOrNull(
-        compareBy<String>({ themeCorrectSum(it) }, { themeShownSum(it) }, { it }),
-    ) ?: return null
+            fun themeShownSum(themeId: String): Int =
+                pool.asSequence()
+                    .filter { it.themeId == themeId }
+                    .sumOf { progress.p(it.id).shownCount }
 
-    return selectable
-        .filter { it.themeId == bestTheme }
-        .minWithOrNull(
-            compareBy<MergedQuestion>({ progress.p(it.id).correctCount }, { progress.p(it.id).shownCount }, { it.id }),
-        )
+            val bestTheme = themeIdsWithPick.minWithOrNull(
+                compareBy<String>({ themeCorrectSum(it) }, { themeShownSum(it) }, { it }),
+            ) ?: return null
+
+            selectable
+                .filter { it.themeId == bestTheme }
+                .minWithOrNull(
+                    compareBy<MergedQuestion>(
+                        { progress.p(it.id).correctCount },
+                        { progress.p(it.id).shownCount },
+                        { it.id },
+                    ),
+                )
+        }
+    }
 }
 
-fun pickStackQuestionIds(pool: List<MergedQuestion>, progress: Map<String, Progress>, depth: Int): List<String> {
+fun pickStackQuestionIds(
+    pool: List<MergedQuestion>,
+    progress: Map<String, Progress>,
+    depth: Int,
+    mode: InterviewStackMode = InterviewStackMode.AllQuestions,
+): List<String> {
     if (depth <= 0 || pool.isEmpty()) return emptyList()
     val ids = mutableListOf<String>()
     repeat(depth) {
-        val next = selectNextQuestion(pool, progress, ids.toSet()) ?: return ids
+        val next = selectNextQuestion(pool, progress, ids.toSet(), mode) ?: return ids
         ids += next.id
     }
     return ids

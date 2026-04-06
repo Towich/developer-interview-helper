@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
@@ -52,6 +51,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlin.math.abs
 import kotlinx.coroutines.launch
+import ru.towich.achline.domain.InterviewStackMode
 import ru.towich.achline.domain.QuestionDifficulty
 import ru.towich.achline.presentation.LocalInterviewRepository
 
@@ -63,10 +63,11 @@ private val ChipBg = Color(0x33FFFFFF)
 
 @Composable
 fun InterviewScreen(
+    mode: InterviewStackMode = InterviewStackMode.AllQuestions,
     modifier: Modifier = Modifier,
 ) {
     val repository = LocalInterviewRepository.current
-    val vm: InterviewViewModel = viewModel { InterviewViewModel(repository) }
+    val vm: InterviewViewModel = viewModel(key = mode.name) { InterviewViewModel(repository, mode) }
     val state by vm.uiState.collectAsState()
 
     Box(
@@ -127,7 +128,6 @@ fun InterviewScreen(
                         modifier = Modifier
                             .fillMaxSize()
                             .windowInsetsPadding(WindowInsets.statusBars)
-                            .windowInsetsPadding(WindowInsets.navigationBars)
                             .padding(bottom = 24.dp, top = 12.dp, start = 18.dp, end = 18.dp),
                     )
                 }
