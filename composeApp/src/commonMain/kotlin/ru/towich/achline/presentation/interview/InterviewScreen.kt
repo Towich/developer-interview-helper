@@ -60,6 +60,7 @@ private val GradientViolet = Color(0xFF9D4EDD)
 private val GradientCyan = Color(0xFF5CE1E6)
 private val CardInnerBg = Color(0xFF120A1F)
 private val ChipBg = Color(0x33FFFFFF)
+private val AppVioletBg = Color(0xFF16082A)
 
 @Composable
 fun InterviewScreen(
@@ -73,15 +74,7 @@ fun InterviewScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF1A0A2E),
-                        Color(0xFF0D0618),
-                        Color(0xFF16082A),
-                    ),
-                ),
-            ),
+            .background(AppVioletBg),
     ) {
         when {
             state.isLoading -> {
