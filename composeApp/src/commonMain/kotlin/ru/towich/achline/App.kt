@@ -34,6 +34,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import ru.towich.achline.domain.InterviewStackMode
 import ru.towich.achline.navigation.InterviewCategoriesRoute
 import ru.towich.achline.navigation.InterviewSessionRoute
 import ru.towich.achline.navigation.InterviewSessionRouteTypeMap
@@ -84,9 +85,8 @@ fun App() {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
 
-        val interviewTabSelected =
-            currentDestination?.hasRoute(InterviewCategoriesRoute::class) == true ||
-                currentDestination?.hasRoute(InterviewSessionRoute::class) == true
+        val categoriesTabSelected = currentDestination?.hasRoute(InterviewCategoriesRoute::class) == true
+        val interviewTabSelected = currentDestination?.hasRoute(InterviewSessionRoute::class) == true
         val topicsTabSelected = currentDestination?.hasRoute(TopicsRoute::class) == true
         val navUnderlayColor = AchlineDarkColors.background
 
@@ -103,12 +103,30 @@ fun App() {
                 )
                 val tabs = listOf(
                     BottomTabItem(
+                        label = "Категории",
+                        iconText = "\uD83D\uDCC2",
+                        selected = categoriesTabSelected,
+                        onClick = {
+                            val returnedToCategories = navController.popBackStack(
+                                route = InterviewCategoriesRoute,
+                                inclusive = false,
+                                saveState = false,
+                            )
+                            if (!returnedToCategories) {
+                                navController.navigate(InterviewCategoriesRoute) {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        },
+                    ),
+                    BottomTabItem(
                         label = "Собес",
                         iconText = "\uD83D\uDCAC",
                         selected = interviewTabSelected,
                         onClick = {
-                            navController.navigate(InterviewCategoriesRoute) {
-                                popUpTo(navController.graph.startDestinationId) {
+                            navController.navigate(InterviewSessionRoute(InterviewStackMode.AllQuestions)) {
+                                popUpTo(InterviewCategoriesRoute) {
                                     saveState = true
                                 }
                                 launchSingleTop = true
@@ -122,7 +140,7 @@ fun App() {
                         selected = topicsTabSelected,
                         onClick = {
                             navController.navigate(TopicsRoute) {
-                                popUpTo(navController.graph.startDestinationId) {
+                                popUpTo(InterviewCategoriesRoute) {
                                     saveState = true
                                 }
                                 launchSingleTop = true
