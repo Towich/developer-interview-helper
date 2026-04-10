@@ -21,11 +21,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hasRoute
@@ -41,6 +39,7 @@ import ru.towich.achline.navigation.InterviewSessionRouteTypeMap
 import ru.towich.achline.navigation.TopicsRoute
 import ru.towich.achline.presentation.interview.InterviewCategoriesScreen
 import ru.towich.achline.presentation.interview.InterviewScreen
+import ru.towich.achline.presentation.topics.TopicsScreen
 
 private val AchlineDarkColors = darkColorScheme(
     primary = Color(0xFFFF4D8C),
@@ -57,18 +56,6 @@ private val AchlineDarkColors = darkColorScheme(
     onSurfaceVariant = Color(0xFFC4BBD8),
     outline = Color(0xFF4A3F66),
 )
-
-@Composable
-private fun TopicsPlaceholderScreen(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(
-            text = "Каталог тем — скоро",
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-        )
-    }
-}
 
 private data class BottomTabItem(
     val label: String,
@@ -228,7 +215,7 @@ fun App() {
                     )
                 }
                 composable<TopicsRoute> {
-                    TopicsPlaceholderScreen(modifier = Modifier.fillMaxSize())
+                    TopicsScreen(modifier = Modifier.fillMaxSize())
                 }
             }
         }
