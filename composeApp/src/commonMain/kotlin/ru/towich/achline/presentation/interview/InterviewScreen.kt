@@ -53,6 +53,7 @@ import kotlin.math.abs
 import kotlinx.coroutines.launch
 import ru.towich.achline.domain.InterviewStackMode
 import ru.towich.achline.domain.QuestionDifficulty
+import ru.towich.achline.domain.repository.InterviewRepository
 import ru.towich.achline.presentation.LocalInterviewRepository
 
 private val GradientPink = Color(0xFFFF4D8C)
@@ -65,10 +66,17 @@ private val AppVioletBg = Color(0xFF16082A)
 @Composable
 fun InterviewScreen(
     mode: InterviewStackMode = InterviewStackMode.AllQuestions,
+    repository: InterviewRepository = LocalInterviewRepository.current,
+    resourceBasePath: String = "files/interview",
     modifier: Modifier = Modifier,
 ) {
-    val repository = LocalInterviewRepository.current
-    val vm: InterviewViewModel = viewModel(key = mode.name) { InterviewViewModel(repository, mode) }
+    val vm: InterviewViewModel = viewModel(key = "$resourceBasePath-${mode.name}") {
+        InterviewViewModel(
+            repository = repository,
+            stackMode = mode,
+            resourceBasePath = resourceBasePath,
+        )
+    }
     val state by vm.uiState.collectAsState()
 
     Box(

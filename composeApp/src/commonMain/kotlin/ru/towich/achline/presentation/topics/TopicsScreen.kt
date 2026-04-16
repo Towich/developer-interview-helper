@@ -48,7 +48,7 @@ fun TopicsScreen(
     val repository = LocalInterviewRepository.current
     val vm: TopicsViewModel = viewModel {
         val useCase = createGetTopicsTreeUseCase(repository)
-        TopicsViewModel(loadTopicsTree = { useCase() })
+        TopicsViewModel(loadTopicsTree = { basePath -> useCase(basePath) })
     }
     val state by vm.uiState.collectAsState()
 
@@ -89,6 +89,7 @@ fun TopicsScreen(
                 TopicsContent(
                     state = state,
                     onBack = vm::onBack,
+                    onFolderClick = vm::onFolderClick,
                     onTechnologyClick = vm::onTechnologyClick,
                     onCategoryClick = vm::onCategoryClick,
                     onThemeClick = vm::onThemeClick,
@@ -118,6 +119,7 @@ fun TopicsScreen(
 private fun TopicsContent(
     state: TopicsUiState,
     onBack: () -> Boolean,
+    onFolderClick: (TopicsFolder) -> Unit,
     onTechnologyClick: (String) -> Unit,
     onCategoryClick: (String) -> Unit,
     onThemeClick: (String) -> Unit,
@@ -125,6 +127,7 @@ private fun TopicsContent(
     modifier: Modifier = Modifier,
 ) {
     val title = when (state.level) {
+        TopicsLevel.Folders -> "Папки"
         TopicsLevel.Technologies -> "Технологии"
         TopicsLevel.Categories -> "Категории"
         TopicsLevel.Themes -> "Темы"
@@ -137,7 +140,7 @@ private fun TopicsContent(
             .padding(horizontal = 20.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        if (state.level != TopicsLevel.Technologies) {
+        if (state.level != TopicsLevel.Folders) {
             Text(
                 text = "← Назад",
                 modifier = Modifier.clickable { onBack() },
@@ -153,6 +156,23 @@ private fun TopicsContent(
         )
 
         when (state.level) {
+            TopicsLevel.Folders -> {
+                LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    items(state.folders, key = { it.name }) { folder ->
+                        val title = if (folder == TopicsFolder.Borisproit) "Borisproit" else "Основное"
+                        val subtitle = if (folder == TopicsFolder.Borisproit) {
+                            "Вопросы из Borisproit"
+                        } else {
+                            "Базовая база вопросов"
+                        }
+                        FolderEntryCard(
+                            title = title,
+                            subtitle = subtitle,
+                            onClick = { onFolderClick(folder) },
+                        )
+                    }
+                }
+            }
             TopicsLevel.Technologies -> {
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     items(state.technologies, key = { it.id }) { technology ->
@@ -201,7 +221,7 @@ private fun TopicsContent(
 @Composable
 private fun TopicsEntryCard(
     title: String,
-    stats: TopicsStats,
+    stats: TopicsStats?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     subtitle: String? = null,
@@ -230,9 +250,25 @@ private fun TopicsEntryCard(
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            StatsLine(stats = stats)
+            if (stats != null) {
+                StatsLine(stats = stats)
+            }
         }
     }
+}
+
+@Composable
+private fun FolderEntryCard(
+    title: String,
+    subtitle: String,
+    onClick: () -> Unit,
+) {
+    TopicsEntryCard(
+        title = title,
+        subtitle = subtitle,
+        stats = null,
+        onClick = onClick,
+    )
 }
 
 @Composable

@@ -1,6 +1,7 @@
 package ru.towich.achline.presentation.topics
 
 sealed interface TopicsUiAction {
+    data class FolderClicked(val folder: TopicsFolder) : TopicsUiAction
     data class TechnologyClicked(val technologyId: String) : TopicsUiAction
     data class CategoryClicked(val categoryId: String) : TopicsUiAction
     data class ThemeClicked(val themeId: String) : TopicsUiAction
@@ -12,6 +13,14 @@ fun reduceTopicsState(
     state: TopicsUiState,
     action: TopicsUiAction,
 ): TopicsUiState = when (action) {
+    is TopicsUiAction.FolderClicked -> state.copy(
+        level = TopicsLevel.Technologies,
+        selectedFolder = action.folder,
+        selectedTechnologyId = null,
+        selectedCategoryId = null,
+        selectedThemeId = null,
+        selectedQuestionIdForAnswer = null,
+    )
     is TopicsUiAction.TechnologyClicked -> state.copy(
         level = TopicsLevel.Categories,
         selectedTechnologyId = action.technologyId,
@@ -39,7 +48,16 @@ fun backFromTopicsState(state: TopicsUiState): Pair<TopicsUiState, Boolean> {
         return state.copy(selectedQuestionIdForAnswer = null) to true
     }
     return when (state.level) {
-        TopicsLevel.Technologies -> state to false
+        TopicsLevel.Folders -> state to false
+        TopicsLevel.Technologies -> {
+            state.copy(
+                level = TopicsLevel.Folders,
+                selectedFolder = null,
+                selectedTechnologyId = null,
+                selectedCategoryId = null,
+                selectedThemeId = null,
+            ) to true
+        }
         TopicsLevel.Categories -> {
             state.copy(
                 level = TopicsLevel.Technologies,

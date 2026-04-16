@@ -12,6 +12,7 @@ class TopicsStateTransitionsTest {
         val start = TopicsUiState(
             isLoading = false,
             level = TopicsLevel.Questions,
+            selectedFolder = TopicsFolder.Default,
             selectedTechnologyId = "Kotlin",
             selectedCategoryId = "Core",
             selectedThemeId = "coroutines",
@@ -29,6 +30,7 @@ class TopicsStateTransitionsTest {
         val questionsState = TopicsUiState(
             isLoading = false,
             level = TopicsLevel.Questions,
+            selectedFolder = TopicsFolder.Default,
             selectedTechnologyId = "Kotlin",
             selectedCategoryId = "Core",
             selectedThemeId = "coroutines",
@@ -48,7 +50,12 @@ class TopicsStateTransitionsTest {
         assertTrue(consumedFromCategories)
         assertEquals(TopicsLevel.Technologies, technologiesState.level)
 
-        val (_, consumedFromRoot) = backFromTopicsState(technologiesState)
+        val (foldersState, consumedFromTechnologies) = backFromTopicsState(technologiesState)
+        assertTrue(consumedFromTechnologies)
+        assertEquals(TopicsLevel.Folders, foldersState.level)
+        assertNull(foldersState.selectedFolder)
+
+        val (_, consumedFromRoot) = backFromTopicsState(foldersState)
         assertFalse(consumedFromRoot)
     }
 }

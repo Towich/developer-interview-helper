@@ -1,0 +1,303 @@
+{
+  "schemaVersion": 1,
+  "technologyId": "borisproit",
+  "categoryId": "kotlin",
+  "themeId": "kotlin_oop_pdf",
+  "themeTitle": "Kotlin (Borisproit PDF)",
+  "questions": [
+    {
+      "id": "borisproit-kotlin-001",
+      "questionText": "[1] Что  такое  null  safety  в  Kotlin?",
+      "answerText": "Null safety — это механизм Kotlin, который позволяет предотвратить ошибки типа за счёт явного разделения типов на и Переменная не может быть если это не указано явно через ?. ?.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-002",
+      "questionText": "[2] Чем  отличается  val  от  var?",
+      "answerText": "val — это неизменяемая ссылка . Значение можно присвоить только один раз . var — это изменяемая ссылка . Значение можно менять .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-003",
+      "questionText": "[3] Чем  отличается  val  от  const  val?",
+      "answerText": "val — это неизменяемая переменная , значение которой может быть известно только во время выполнения . const val — это константа , значение которой известно во время компиляции .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-004",
+      "questionText": "[4] Что  такое  type  inference  в  Kotlin?",
+      "answerText": "Type inference — это способность Kotlin автоматически определять тип переменной .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-005",
+      "questionText": "[5] Что  делает  оператор?",
+      "answerText": "Ответ не распознан автоматически из PDF.",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-006",
+      "questionText": "[6] Оператор?",
+      "answerText": "Он вызывает метод или обращается к свойству только если объект не равен",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-007",
+      "questionText": "[7] Что  такое  smart  cast?",
+      "answerText": "Smart cast — это автоматическое приведение типа после проверки .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-008",
+      "questionText": "[8] Чем  when  отличается  от  switch?",
+      "answerText": "switch — это конструкция из Java, которая работает только с ограниченными типами и требует when — более гибкая конструкция , которая работает с любыми типами , поддерживает условия и не требует",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-009",
+      "questionText": "[9] Что  делает  оператор  !! и  почему  его  не  любят?",
+      "answerText": "Оператор !! принудительно преобразует nullable тип в non-nullable. Если значение окажется — произойдёт —",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-010",
+      "questionText": "[10] Что  делает  Elvis  оператор?",
+      "answerText": "Elvis оператор возвращает значение слева , если оно не равно null, иначе — значение справа .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-011",
+      "questionText": "[11] Чем  отличается  null  от  empty?",
+      "answerText": "null означает отсутствие значения . empty означает наличие значения , но без содержимого . Используйте null, когда значение отсутствует . Используйте empty, когда объект существует , но пуст .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-012",
+      "questionText": "[12] Чем  отличается  == от  ===?",
+      "answerText": "== проверяет структурное равенство ( сравнивает значения ). === проверяет ссылочное равенство ( сравнивает , указывают ли переменные на один объект ).",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-013",
+      "questionText": "[13] Что  такое  data  class  и  зачем  он  нужен?",
+      "answerText": "Data class — это класс , предназначенный для хранения данных . Он автоматически генерирует и",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-014",
+      "questionText": "[14] Что  такое  sealed  class  и  где  его  используют?",
+      "answerText": "Sealed class — это ограниченная иерархия классов , где все возможные наследники известны заранее . Чаще всего используется для моделирования состояний",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-015",
+      "questionText": "[15] В  чём  разница  между  class,  data  class,  sealed  class  и  enum?",
+      "answerText": "class — обычный класс для логики и состояния . data class — класс для хранения данных с авто - методами . sealed class — ограниченная иерархия для описания состояний . enum — фиксированный набор значений .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-016",
+      "questionText": "[16] Что  такое  value  class?",
+      "answerText": "Value class — это класс - обёртка над одним значением без создания дополнительного объекта . Лучше использовать , когда нужно добавить смысл к примитивному типу без лишних затрат . Не стоит использовать , если нужно хранить несколько свойств или сложную логику .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-017",
+      "questionText": "[17] В  чём  разница  между  object  declaration  и  object  expression?",
+      "answerText": "Object declaration — это именованный singleton. — это анонимный объект , создаётся каждый раз . Характеристики : ● имеет имя ● создаётся один раз ● лениво ( при первом доступе ) ● singleton Используется для : ● глобальных сервисов ● утилит ● shared состояния Характеристики : ● без имени создаётся сразу ● новый экземпляр каждый раз ● часто используется как inline реализация Используется для : ● callbacks ● listeners ● временной логики",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-018",
+      "questionText": "[18] Чем  interface  отличается  от  abstract  class?",
+      "answerText": "interface описывает поведение и может иметь несколько реализаций . abstract class может хранить состояние и предоставляет базовую реализацию .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-019",
+      "questionText": "[19] Могут  ли  интерфейсы  иметь  реализацию  в  Kotlin?",
+      "answerText": "Да , интерфейсы могут иметь реализацию методов по умолчанию .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-020",
+      "questionText": "[20] Что  такое  primary  и  secondary  constructor?",
+      "answerText": "Primary constructor — основной конструктор , объявляется в заголовке класса . — дополнительный конструктор , объявляется внутри класса .",
+      "difficulty": "easy"
+    },
+    {
+      "id": "borisproit-kotlin-021",
+      "questionText": "[21] Когда  использовать  init,  а  когда  secondary  constructor?",
+      "answerText": "init используют для общей логики инициализации . используют , когда нужен альтернативный способ создания объекта .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-022",
+      "questionText": "[22] Что  такое  object?",
+      "answerText": "object — это способ объявить singleton в Kotlin. Он создаёт единственный экземпляр класса .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-023",
+      "questionText": "[23] Что  такое  companion  object?",
+      "answerText": "Companion object — это объект внутри класса , который используется для хранения статических членов .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-024",
+      "questionText": "[24] Какая  разница  между  object и  companion  object?",
+      "answerText": "object — это отдельный singleton- класс . companion object — это singleton внутри класса , который используется для статического доступа к членам класса .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-025",
+      "questionText": "[25] Что  такое  lateinit  и  когда  его  можно  использовать?",
+      "answerText": "lateinit — это модификатор для non-null переменных , которые будут инициализированы позже . Используется , когда значение нельзя задать сразу ( например , или",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-026",
+      "questionText": "[26] Что  такое  функции  высшего  порядка  (Higher  Order  Functions)?",
+      "answerText": "Функции высшего порядка — это функции , которые принимают другие функции как параметр или возвращают функцию . “ Мне передадут функцию которая принимает 2 числа и возвращает число ” \" Возьми два числа сложи их \"",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-027",
+      "questionText": "[27] Что  такое  lambda?",
+      "answerText": "Lambda — это анонимная функция , которую можно передать как значение .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-028",
+      "questionText": "[28] В  чём  преимущество  lambda?",
+      "answerText": "Lambda позволяет передавать поведение без создания отдельной функции или класса . Это делает код короче и удобнее . - много мелких функций - мусор в коде - неудобно Lambda = быстрый способ передать поведение Пример : Без lambda пришлось бы писать отдельную функцию . Итог : ✔ гибкость ✔ меньше лишних функций ✔ возможность менять поведение \" на лету \" Но есть проблемы : - объект в памяти - который создаётся при вызове",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-029",
+      "questionText": "[29] Что  такое  inline  функция?",
+      "answerText": "Inline функция — это функция , код которой подставляется в место вызова во время компиляции .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-030",
+      "questionText": "[30] Зачем  нужен  inline?",
+      "answerText": "Inline нужен для уменьшения накладных расходов при использовании lambda. Он позволяет избежать создания дополнительных объектов и вызовов функций . Inline решает проблему : - лишних объектов - лишних вызовов Inline используется когда : - lambda вызывается часто - важна производительность - нужна возможность return Пример : forEach, apply, run, let — все inline. Короткая суть : - Lambda — даёт гибкость - Inline — убирает цену за эту гибкость",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-031",
+      "questionText": "[31] Что  такое  SAM  conversion?",
+      "answerText": "SAM conversion — это механизм , который позволяет передавать lambda вместо объекта интерфейса , если у него только один абстрактный метод . Компилятор автоматически создаёт объект интерфейса из lambda. Здесь lambda автоматически превращается в объект Runnable.",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-032",
+      "questionText": "[32] Что  такое  extension  function?",
+      "answerText": "Extension function — это функция , которая добавляет новый метод к существующему классу без его изменения .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-033",
+      "questionText": "[33] Как  работают  функции  с  дефолтными  параметрами?",
+      "answerText": "Функции с дефолтными параметрами позволяют не передавать аргумент , если у него уже есть значение по умолчанию .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-034",
+      "questionText": "[34] Чем  отличается  List  от  MutableList?",
+      "answerText": "List — только для чтения , элементы нельзя изменять . MutableList — изменяемая , можно добавлять и удалять элементы .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-035",
+      "questionText": "[35] Чем  отличается  map  от  flatMap?",
+      "answerText": "map преобразует каждый элемент в один новый элемент . flatMap преобразует каждый элемент в коллекцию и объединяет результат в один список .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-036",
+      "questionText": "[36] Что  делает  filter?",
+      "answerText": "filter возвращает элементы , которые соответствуют заданному условию .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-037",
+      "questionText": "[37] Что  такое  Sequence  и  чем  отличается  от  Collection?",
+      "answerText": "Sequence обрабатывает элементы лениво — по одному , только когда это нужно . обрабатывает все элементы сразу . Sequence нужен не для хранения , а для эффективной обработки .",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-038",
+      "questionText": "[38] Когда  выбирать  что?",
+      "answerText": "Используем Sequence когда : - список большой - цепочка операций длинная - важна память - можно остановиться раньше ( например find)",
+      "difficulty": "medium"
+    },
+    {
+      "id": "borisproit-kotlin-039",
+      "questionText": "[39] Чем  fold  отличается  от  reduce?",
+      "answerText": "reduce использует первый элемент как начальное значение . fold позволяет задать начальное значение вручную .",
+      "difficulty": "hard"
+    },
+    {
+      "id": "borisproit-kotlin-040",
+      "questionText": "[40] Что  делают  let  /  run  /  apply  /  also  /  with?",
+      "answerText": "Это scope functions — они позволяют работать с объектом внутри блока кода . Отличаются тем , как передают объект и что возвращают . let — когда объект может быть null и / или нужно получить результат Самый частый кейс : nullable Или когда надо сделать несколько действий и вернуть что - то новое : run = Часто используют для “ локального блока ” как let, но внутри this ( удобно , когда много обращений к полям ) apply — настройка объекта (builder- стиль ). Всегда возвращает объект . “ настроил и вернул объект ”. also — побочные действия ( лог , аналитика ), но не менять цепочку . Возвращает объект . “ сделал что - то рядом , но вернул исходный объект ”. with(obj) — как run, но объект передаётся параметром . Используют , когда объект уже есть и хочется “ поработать внутри this” блоком .",
+      "difficulty": "hard"
+    },
+    {
+      "id": "borisproit-kotlin-041",
+      "questionText": "[41] Как  выбрать?",
+      "answerText": "Нужно обработать / вернуть значение → let Нужно вычислить результат , много обращений к полям → run или with Нужно сконфигурировать объект → apply Нужно логирование / аналитика / побочные эффекты , не ломая цепочку → also",
+      "difficulty": "hard"
+    },
+    {
+      "id": "borisproit-kotlin-042",
+      "questionText": "[42] Когда  использовать  apply  vs  let?",
+      "answerText": "apply используют для настройки объекта . let используют для работы с результатом или null- проверки .",
+      "difficulty": "hard"
+    },
+    {
+      "id": "borisproit-kotlin-043",
+      "questionText": "[43] Почему  apply  возвращает  объект ,  а  let  —  результат?",
+      "answerText": "apply предназначен для настройки объекта , поэтому возвращает сам объект . let предназначен для работы с результатом , поэтому возвращает результат блока .",
+      "difficulty": "hard"
+    },
+    {
+      "id": "borisproit-kotlin-044",
+      "questionText": "[44] Почему  immutable  объекты  безопаснее?",
+      "answerText": "Immutable объекты нельзя изменить после создания , поэтому их состояние всегда предсказуемо .",
+      "difficulty": "hard"
+    },
+    {
+      "id": "borisproit-kotlin-045",
+      "questionText": "[45] Почему  shared  mutable  state  —  опасен?",
+      "answerText": "Общий изменяемый объект может быть изменён разными потоками , что приводит к непредсказуемому состоянию .",
+      "difficulty": "hard"
+    },
+    {
+      "id": "borisproit-kotlin-046",
+      "questionText": "[46] Что  такое  delegation?",
+      "answerText": "Delegation — это передача ответственности другому объекту вместо самостоятельной реализации . Мы делегируем создание binding Ты не создаёшь ViewModel сам . - Делегат делает это за тебя - с правильным lifecycle",
+      "difficulty": "hard"
+    },
+    {
+      "id": "borisproit-kotlin-047",
+      "questionText": "[47] Что  такое  delegated  properties?",
+      "answerText": "Delegated properties — это свойства , чья логика хранения или вычисления передаётся другому объекту . Вместо : где значение хранится в памяти , мы делаем : Теперь значение : - может храниться в SharedPreferences - в Bundle - в файле - где угодно",
+      "difficulty": "hard"
+    },
+    {
+      "id": "borisproit-kotlin-048",
+      "questionText": "[48] Что  такое  by  lazy?",
+      "answerText": "by lazy — это делегат , который откладывает инициализацию свойства до первого обращения . Создай значение только тогда , когда оно впервые понадобится Или создаётся только если экран реально использует его",
+      "difficulty": "hard"
+    },
+    {
+      "id": "borisproit-kotlin-049",
+      "questionText": "[49] Чем  отличается  lateinit от  lazy?",
+      "answerText": "lateinit — отложенная инициализация переменной , которую нужно присвоить вручную . lazy — автоматическая инициализация при первом обращении .",
+      "difficulty": "hard"
+    }
+  ]
+}

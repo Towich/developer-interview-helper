@@ -18,6 +18,7 @@ import ru.towich.achline.domain.repository.InterviewRepository
 class InterviewViewModel(
     private val repository: InterviewRepository,
     private val stackMode: InterviewStackMode,
+    private val resourceBasePath: String = "files/interview",
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(InterviewUiState())
@@ -34,7 +35,7 @@ class InterviewViewModel(
     init {
         viewModelScope.launch {
             runCatching {
-                val (themes, overlay) = repository.loadBundleAndOverlay()
+                val (themes, overlay) = repository.loadBundleAndOverlay(resourceBasePath)
                 applySessionEvent(InterviewSessionEvent.Initialized(themes, overlay, stackMode))
             }.onFailure { e ->
                 _uiState.update {

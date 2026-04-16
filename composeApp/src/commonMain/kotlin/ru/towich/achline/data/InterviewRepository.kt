@@ -19,11 +19,11 @@ class InterviewRepositoryImpl(
 ) : InterviewRepository {
 
     @OptIn(ExperimentalResourceApi::class)
-    override suspend fun loadBundleAndOverlay(): Pair<List<ThemeBundleData>, UserOverlayState> {
-        val indexBytes = Res.readBytes("files/interview/index.json")
+    override suspend fun loadBundleAndOverlay(resourceBasePath: String): Pair<List<ThemeBundleData>, UserOverlayState> {
+        val indexBytes = Res.readBytes("$resourceBasePath/index.json")
         val index = json.decodeFromString<InterviewIndexDto>(indexBytes.decodeToString())
         val themes = index.themePaths.map { relative ->
-            val path = "files/interview/$relative"
+            val path = "$resourceBasePath/$relative"
             val bytes = Res.readBytes(path)
             json.decodeFromString<ThemeBundleDto>(bytes.decodeToString()).toDomain()
         }

@@ -10,19 +10,35 @@ import kotlinx.coroutines.launch
 import ru.towich.achline.domain.topics.TopicsTree
 
 class TopicsViewModel(
-    private val loadTopicsTree: suspend () -> TopicsTree,
+    private val loadTopicsTree: suspend (String) -> TopicsTree,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(TopicsUiState())
     val uiState: StateFlow<TopicsUiState> = _uiState.asStateFlow()
 
-    init {
-        reload()
+    fun reload() {
+        val folder = _uiState.value.selectedFolder ?: return
+        loadFolder(folder)
     }
 
-    fun reload() {
+    fun onFolderClick(folder: TopicsFolder) {
+        _uiState.update {
+            reduceTopicsState(it, TopicsUiAction.FolderClicked(folder)).copy(
+                isLoading = true,
+                error = null,
+                tree = TopicsTree(emptyList()),
+            )
+        }
+        loadFolder(folder)
+    }
+
+    private fun loadFolder(folder: TopicsFolder) {
+        val resourceBasePath = when (folder) {
+            TopicsFolder.Default -> "files/interview"
+            TopicsFolder.Borisproit -> "files/borisproit"
+        }
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
-            runCatching { loadTopicsTree() }
+            runCatching { loadTopicsTree(resourceBasePath) }
                 .onSuccess { tree ->
                     _uiState.update {
                         it.copy(
@@ -30,6 +46,7 @@ class TopicsViewModel(
                             error = null,
                             tree = tree,
                             level = TopicsLevel.Technologies,
+                            selectedFolder = folder,
                             selectedTechnologyId = null,
                             selectedCategoryId = null,
                             selectedThemeId = null,

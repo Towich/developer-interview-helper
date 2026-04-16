@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "themePaths": [
+    "android/questions.json",
+    "kotlin/questions.json"
+  ]
+}

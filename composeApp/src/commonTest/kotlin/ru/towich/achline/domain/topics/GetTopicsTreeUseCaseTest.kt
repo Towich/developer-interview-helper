@@ -58,7 +58,9 @@ private class FakeInterviewRepository(
     private val themes: List<ThemeBundleData>,
     private val overlay: UserOverlayState,
 ) : InterviewRepository {
-    override suspend fun loadBundleAndOverlay(): Pair<List<ThemeBundleData>, UserOverlayState> = themes to overlay
+    override suspend fun loadBundleAndOverlay(
+        resourceBasePath: String,
+    ): Pair<List<ThemeBundleData>, UserOverlayState> = themes to overlay
 
     override fun saveOverlay(overlay: UserOverlayState) = Unit
 }

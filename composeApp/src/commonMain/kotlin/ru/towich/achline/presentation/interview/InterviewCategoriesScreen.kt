@@ -32,6 +32,8 @@ import ru.towich.achline.domain.InterviewStackMode
 import ru.towich.achline.domain.hasOnlyCorrectAnswers
 import ru.towich.achline.domain.mergeBundleWithOverlay
 import ru.towich.achline.domain.progressFor
+import ru.towich.achline.domain.repository.InterviewRepository
+import ru.towich.achline.navigation.InterviewContentSource
 import ru.towich.achline.presentation.LocalInterviewRepository
 
 private val GradientPink = Color(0xFFFF4D8C)
@@ -41,19 +43,36 @@ private data class CategoryCounts(val all: Int, val leastAnswered: Int)
 
 @Composable
 fun InterviewCategoriesScreen(
-    onCategoryClick: (InterviewStackMode) -> Unit,
+    source: InterviewContentSource = InterviewContentSource.Default,
+    repository: InterviewRepository = LocalInterviewRepository.current,
+    onCategoryClick: (InterviewStackMode, String) -> Unit,
+    resourceBasePath: String = "files/interview",
     modifier: Modifier = Modifier,
 ) {
-    val repository = LocalInterviewRepository.current
     var counts by remember { mutableStateOf<CategoryCounts?>(null) }
+    var borisproitCounts by remember { mutableStateOf<Map<String, CategoryCounts>?>(null) }
     var loadError by remember { mutableStateOf<String?>(null) }
 
-    LaunchedEffect(repository) {
+    LaunchedEffect(repository, source, resourceBasePath) {
         runCatching {
-            val (themes, overlay) = repository.loadBundleAndOverlay()
-            val merged = mergeBundleWithOverlay(themes, overlay)
-            val leastAnswered = merged.count { q -> !overlay.progressFor(q.id).hasOnlyCorrectAnswers() }
-            counts = CategoryCounts(all = merged.size, leastAnswered = leastAnswered)
+            if (source == InterviewContentSource.Borisproit) {
+                val modePaths = listOf(
+                    "files/borisproit/android" to "Android",
+                    "files/borisproit/kotlin" to "Kotlin",
+                )
+                val loaded = modePaths.associate { (path, _) ->
+                    val (themes, overlay) = repository.loadBundleAndOverlay(path)
+                    val merged = mergeBundleWithOverlay(themes, overlay)
+                    val leastAnswered = merged.count { q -> !overlay.progressFor(q.id).hasOnlyCorrectAnswers() }
+                    path to CategoryCounts(all = merged.size, leastAnswered = leastAnswered)
+                }
+                borisproitCounts = loaded
+            } else {
+                val (themes, overlay) = repository.loadBundleAndOverlay(resourceBasePath)
+                val merged = mergeBundleWithOverlay(themes, overlay)
+                val leastAnswered = merged.count { q -> !overlay.progressFor(q.id).hasOnlyCorrectAnswers() }
+                counts = CategoryCounts(all = merged.size, leastAnswered = leastAnswered)
+            }
         }.onFailure { e ->
             loadError = e.message ?: e.toString()
         }
@@ -77,7 +96,8 @@ fun InterviewCategoriesScreen(
                 )
             }
 
-            counts == null -> {
+            (source == InterviewContentSource.Borisproit && borisproitCounts == null) ||
+                (source != InterviewContentSource.Borisproit && counts == null) -> {
                 CircularProgressIndicator(
                     modifier = Modifier.align(Alignment.Center),
                     color = GradientPink,
@@ -85,7 +105,6 @@ fun InterviewCategoriesScreen(
             }
 
             else -> {
-                val c = counts!!
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -94,7 +113,7 @@ fun InterviewCategoriesScreen(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     Text(
-                        text = "Собеседование",
+                        text = if (source == InterviewContentSource.Borisproit) "Borisproit" else "Собеседование",
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -104,20 +123,82 @@ fun InterviewCategoriesScreen(
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
-                    CategoryCard(
-                        title = "Все вопросы",
-                        subtitle = "Как в основном режиме: баланс по темам",
-                        questionCount = c.all,
-                        onClick = { onCategoryClick(InterviewStackMode.AllQuestions) },
-                    )
-                    CategoryCard(
-                        title = "Реже отвечал",
-                        subtitle = "Без вопросов с 100% успехов по показам; сначала с меньшим числом успехов",
-                        questionCount = c.leastAnswered,
-                        onClick = { onCategoryClick(InterviewStackMode.LeastAnswered) },
-                    )
+                    if (source == InterviewContentSource.Borisproit) {
+                        val modeCards = listOf(
+                            Triple("Android", "Режим по вопросам Android из базы Borisproit", "files/borisproit/android"),
+                            Triple("Kotlin", "Режим по вопросам Kotlin из базы Borisproit", "files/borisproit/kotlin"),
+                        )
+                        val loadedCounts = borisproitCounts.orEmpty()
+                        modeCards.forEach { (title, subtitle, path) ->
+                            val modeCount = loadedCounts[path]?.all ?: 0
+                            CategoryCard(
+                                title = title,
+                                subtitle = subtitle,
+                                questionCount = modeCount,
+                                onClick = { onCategoryClick(InterviewStackMode.AllQuestions, path) },
+                            )
+                        }
+                    } else {
+                        val c = counts!!
+                        CategoryCard(
+                            title = "Все вопросы",
+                            subtitle = "Как в основном режиме: баланс по темам",
+                            questionCount = c.all,
+                            onClick = { onCategoryClick(InterviewStackMode.AllQuestions, resourceBasePath) },
+                        )
+                        CategoryCard(
+                            title = "Реже отвечал",
+                            subtitle = "Без вопросов с 100% успехов по показам; сначала с меньшим числом успехов",
+                            questionCount = c.leastAnswered,
+                            onClick = { onCategoryClick(InterviewStackMode.LeastAnswered, resourceBasePath) },
+                        )
+                    }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun InterviewFoldersScreen(
+    onFolderClick: (InterviewContentSource) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(AppVioletBg),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.statusBars)
+                .padding(horizontal = 20.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Text(
+                text = "Категории",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+                text = "Выберите папку",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            CategoryCard(
+                title = "Основное",
+                subtitle = "Базовые режимы собеседования",
+                questionCount = 0,
+                onClick = { onFolderClick(InterviewContentSource.Default) },
+            )
+            CategoryCard(
+                title = "Borisproit",
+                subtitle = "Режимы из PDF-коллекции вопросов",
+                questionCount = 0,
+                onClick = { onFolderClick(InterviewContentSource.Borisproit) },
+            )
         }
     }
 }
@@ -154,11 +235,13 @@ private fun CategoryCard(
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            Text(
-                text = "Вопросов: $questionCount",
-                style = MaterialTheme.typography.labelLarge,
-                color = GradientPink,
-            )
+            if (questionCount > 0) {
+                Text(
+                    text = "Вопросов: $questionCount",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = GradientPink,
+                )
+            }
         }
     }
 }

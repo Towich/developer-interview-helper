@@ -34,10 +34,14 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import ru.towich.achline.domain.InterviewStackMode
 import ru.towich.achline.navigation.InterviewCategoriesRoute
+import ru.towich.achline.navigation.InterviewContentSource
+import ru.towich.achline.navigation.InterviewModesRoute
 import ru.towich.achline.navigation.InterviewSessionRoute
 import ru.towich.achline.navigation.InterviewSessionRouteTypeMap
 import ru.towich.achline.navigation.TopicsRoute
+import ru.towich.achline.presentation.LocalInterviewRepository
 import ru.towich.achline.presentation.interview.InterviewCategoriesScreen
+import ru.towich.achline.presentation.interview.InterviewFoldersScreen
 import ru.towich.achline.presentation.interview.InterviewScreen
 import ru.towich.achline.presentation.topics.TopicsScreen
 
@@ -69,10 +73,13 @@ private data class BottomTabItem(
 fun App() {
     MaterialTheme(colorScheme = AchlineDarkColors) {
         val navController = rememberNavController()
+        val baseRepository = LocalInterviewRepository.current
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
 
-        val categoriesTabSelected = currentDestination?.hasRoute(InterviewCategoriesRoute::class) == true
+        val categoriesTabSelected =
+            currentDestination?.hasRoute(InterviewCategoriesRoute::class) == true ||
+                currentDestination?.hasRoute(InterviewModesRoute::class) == true
         val interviewTabSelected = currentDestination?.hasRoute(InterviewSessionRoute::class) == true
         val topicsTabSelected = currentDestination?.hasRoute(TopicsRoute::class) == true
         val navUnderlayColor = AchlineDarkColors.background
@@ -112,7 +119,13 @@ fun App() {
                         iconText = "\uD83D\uDCAC",
                         selected = interviewTabSelected,
                         onClick = {
-                            navController.navigate(InterviewSessionRoute(InterviewStackMode.AllQuestions)) {
+                            navController.navigate(
+                                InterviewSessionRoute(
+                                    source = InterviewContentSource.Default,
+                                    mode = InterviewStackMode.AllQuestions,
+                                    resourceBasePath = "files/interview",
+                                ),
+                            ) {
                                 popUpTo(InterviewCategoriesRoute) {
                                     saveState = true
                                 }
@@ -200,16 +213,44 @@ fun App() {
                 typeMap = InterviewSessionRouteTypeMap,
             ) {
                 composable<InterviewCategoriesRoute> {
+                    InterviewFoldersScreen(
+                        onFolderClick = { source ->
+                            navController.navigate(InterviewModesRoute(source))
+                        },
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                }
+                composable<InterviewModesRoute> { entry ->
+                    val route = entry.toRoute<InterviewModesRoute>()
+                    val resourceBasePath = when (route.source) {
+                        InterviewContentSource.Default -> "files/interview"
+                        InterviewContentSource.Borisproit -> "files/borisproit"
+                    }
                     InterviewCategoriesScreen(
-                        onCategoryClick = { mode ->
-                            navController.navigate(InterviewSessionRoute(mode))
+                        source = route.source,
+                        repository = baseRepository,
+                        resourceBasePath = resourceBasePath,
+                        onCategoryClick = { mode, selectedResourceBasePath ->
+                            navController.navigate(
+                                InterviewSessionRoute(
+                                    source = route.source,
+                                    mode = mode,
+                                    resourceBasePath = selectedResourceBasePath,
+                                ),
+                            )
                         },
                         modifier = Modifier.fillMaxSize(),
                     )
                 }
                 composable<InterviewSessionRoute>(typeMap = InterviewSessionRouteTypeMap) { entry ->
                     val route = entry.toRoute<InterviewSessionRoute>()
+                    val resourceBasePath = route.resourceBasePath ?: when (route.source) {
+                        InterviewContentSource.Default -> "files/interview"
+                        InterviewContentSource.Borisproit -> "files/borisproit/android"
+                    }
                     InterviewScreen(
+                        repository = baseRepository,
+                        resourceBasePath = resourceBasePath,
                         mode = route.mode,
                         modifier = Modifier.fillMaxSize(),
                     )

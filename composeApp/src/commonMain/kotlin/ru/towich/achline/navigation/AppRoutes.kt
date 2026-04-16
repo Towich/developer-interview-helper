@@ -7,7 +7,20 @@ import ru.towich.achline.domain.InterviewStackMode
 data object InterviewCategoriesRoute
 
 @Serializable
-data class InterviewSessionRoute(val mode: InterviewStackMode)
+enum class InterviewContentSource {
+    Default,
+    Borisproit,
+}
+
+@Serializable
+data class InterviewModesRoute(val source: InterviewContentSource)
+
+@Serializable
+data class InterviewSessionRoute(
+    val source: InterviewContentSource,
+    val mode: InterviewStackMode,
+    val resourceBasePath: String? = null,
+)
 
 @Serializable
 data object TopicsRoute
